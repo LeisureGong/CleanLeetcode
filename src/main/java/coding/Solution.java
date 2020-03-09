@@ -100,6 +100,12 @@ class Solutions {
 		return result;
 	}
 
+	//合并区间
+	public int[][] merge(int[][] intervals){
+
+		return null;
+	}
+
 
 	public static void main(String... args){
 //		System.out.println(Solutions.threeSum(new int[]{-1, 0, 1, 2, -1, -4}));
