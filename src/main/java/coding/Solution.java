@@ -2,7 +2,10 @@ package coding;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author gonglei
@@ -102,8 +105,13 @@ class Solutions {
 
 	//合并区间
 	public int[][] merge(int[][] intervals){
-
+		int[][] result;
 		return null;
+	}
+
+	//组合总和
+	public List<List<Integer>> combinationSum(int[] candidates,int target){
+		return  null;
 	}
 
 
