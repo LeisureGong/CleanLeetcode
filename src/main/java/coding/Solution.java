@@ -51,6 +51,7 @@ class Solutions {
 
 		return null;
 	}
+
 	//合并两个有序数组
 	public static void merge(int[] nums1,int m,int[] nums2,int n){
 		//非空校验
@@ -103,16 +104,16 @@ class Solutions {
 		return result;
 	}
 
-	//合并区间
-	public int[][] merge(int[][] intervals){
-		int[][] result;
-		return null;
-	}
-
-	//组合总和
-	public List<List<Integer>> combinationSum(int[] candidates,int target){
-		return  null;
-	}
+//	//合并区间
+//	public int[][] merge(int[][] intervals){
+//		int[][] result;
+//		return null;
+//	}
+//
+//	//组合总和
+//	public List<List<Integer>> combinationSum(int[] candidates,int target){
+//		return  null;
+//	}
 
 
 	public static void main(String... args){
