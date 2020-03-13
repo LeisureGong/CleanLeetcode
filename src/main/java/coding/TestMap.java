@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TestMap{
-	public static void main(String[] args){
-		Map<String,String> map = new HashMap<String,String>();
+	public static void main(Strings[] args){
+		Map<Strings, Strings> map = new HashMap<Strings, Strings>();
 		map.put("1","value1");
 		map.put("2","value2");
 		map.put("3","value3");
@@ -36,7 +36,7 @@ public class TestMap{
 //			System.out.println(v);
 //		}
 
-		Map<Long,String> newMap = map.entrySet().stream()
+		Map<Long, Strings> newMap = map.entrySet().stream()
 				.collect(Collectors.toMap(e -> Long.parseLong(e.getKey()),Map.Entry::getValue));
 		return;
 	}

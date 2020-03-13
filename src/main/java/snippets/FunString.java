@@ -1,6 +1,9 @@
 package snippets;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.stream.Stream;
 
 /**
@@ -9,15 +12,14 @@ import java.util.stream.Stream;
  */
 public class FunString {
 
-	public static int byteSize(String input){
-		return input.getBytes().length;
-	}
-
-	public static <T> T[] concat(T[] first,T[] second){
-		return Stream.concat(
-				Stream.of(first),
-				Stream.of(second)
-		).toArray(i -> (T[]) Arrays.copyOf(new Object[0],i,first.getClass()));
+	public static void main(String[] args){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DAY_OF_MONTH, -365);
+		date = calendar.getTime();
+		System.out.println(sdf.format(date));
 	}
 
 
