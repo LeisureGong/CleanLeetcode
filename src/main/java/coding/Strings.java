@@ -15,6 +15,22 @@ public class Strings {
         return  b == 0? a : gcd(b,a%b);
     }
 
+    //8. 实现 strStr()
+    public int strStr(String haystack, String needle) {
+        if(needle.isEmpty() || "".equals(needle)){
+            return 0;
+        }
+        int l = haystack.length(),n = needle.length();
+        for(int i = 0;i < l - n + 1;i++){
+            if(haystack.substring(i,i + n).equals(needle)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+
     public static void main(String... args){
         System.out.println(gcdOfStrings("aaaa","aa"));
     }
