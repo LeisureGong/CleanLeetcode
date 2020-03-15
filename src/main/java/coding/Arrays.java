@@ -1,5 +1,8 @@
 package coding;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author gonglei
  * @date 2020/3/13 13:14
@@ -67,7 +70,20 @@ public class Arrays {
 		nums[i] = nums[j];
 		nums[j] = temp;
 	}
+	//面试题03. 数组中重复的数字
+	public static int findRepeatNumber(int[] nums) {
+		Map<Integer,Integer> map = new HashMap<>();
+		for(int i = 0;i < nums.length;i++){
+			int x = nums[i];
+			if(map.containsKey(x)){
+				return x;
+			}else{
+				map.put(x,1);
+			}
+		}
+		return -1;
+	}
 	public static void main(String... args){
-		System.out.println(majorityElement(new int[]{8,8,7,7,7}));
+		System.out.println(findRepeatNumber(new int[]{2, 3, 1, 0, 2, 5, 3}));
 	}
 }
