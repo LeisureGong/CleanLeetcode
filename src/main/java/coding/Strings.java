@@ -29,10 +29,56 @@ public class Strings {
         return -1;
     }
 
+    //5.最长回文子串
+
+    public static String longestPalindrome(String s){
+        if(s.length() <= 1) return s;
+        int maxLen = 0;
+        String sub = "";
+
+        for(int i = 0; i < s.length();i++){
+            //单核回文
+            int low = i,high = i;
+            while(low >= 0 && high < s.length()){
+                if(s.charAt(low) == s.charAt(high)){
+                    if(high - low + 1 > maxLen){
+                        maxLen = high - low + 1;
+                        sub = s.substring(low,high+1);
+                    }
+                    low--;high++;
+                }else break;
+            }
+            //双核回文
+            low = i;high = i+1;
+            while(low >= 0 && high < s.length()){
+                if(s.charAt(low) == s.charAt(high)){
+                    if(high - low + 1 > maxLen){
+                        maxLen = high - low + 1;
+                        sub = s.substring(low,high+1);
+                    }
+                    low--;high++;
+                }else break;
+            }
+        }
+        return sub;
+    }
+//    public static void findLongestPalindrome(String s,int low,int high){
+//        while(low >= 0 && high < s.length()){
+//            if(s.charAt(low) == s.charAt(high)){
+//                if(high - low + 1 > maxLen){
+//                    maxLen = high - low + 1;
+//                    sub = s.substring(low,high+1);
+//                }
+//                low--;high++;
+//            }else break;
+//        }
+//    }
+
 
 
     public static void main(String... args){
-        System.out.println(gcdOfStrings("aaaa","aa"));
+        System.out.println(longestPalindrome("babad"));
+        System.out.println(longestPalindrome("cbbd"));
     }
 
 
