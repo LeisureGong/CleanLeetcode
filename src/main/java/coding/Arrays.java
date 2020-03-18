@@ -1,5 +1,7 @@
 package coding;
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,7 +85,25 @@ public class Arrays {
 		}
 		return -1;
 	}
-	public static void main(String... args){
-		System.out.println(findRepeatNumber(new int[]{2, 3, 1, 0, 2, 5, 3}));
+
+	//836 矩形重叠
+	public static boolean isRectangleOverlap(int[] rect1,int[] rect2) {
+		int x1 = rect1[0], y1 = rect1[1];
+		int x2 = rect1[2], y2 = rect1[3];
+		int p1 = rect2[0],q1 = rect2[1];
+		int p2 = rect2[2],q2 = rect2[3];
+		if((x1 <= p1 && p1 < x2 && y1 <= q1 && q1 < y2) || (x1 <= p2 && p2 < x2 && y1 <= q2 && q2 < y2)){
+			return true;
+		}
+		return false;
 	}
+
+
+	public static void main(String... args){
+//		System.out.println(findRepeatNumber(new int[]{2, 3, 1, 0, 2, 5, 3}));
+		int a[] = {0,0,1,1};
+		int b[] = {1,0,2,1};
+		System.out.println(isRectangleOverlap(a,b));
+	}
+
 }

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 public class Strings {
@@ -106,7 +108,6 @@ public class Strings {
     }
 
     //5.最长回文子串
-
     public static String longestPalindrome(String s){
         if(s.length() <= 1) return s;
         int maxLen = 0;
@@ -182,13 +183,6 @@ public class Strings {
         else return false;
     }
 
-    //49字母异位词分组
-//    public static List<List<String>> groupAnagrams(String[] strs){
-//        List<List<String>> result = new ArrayList<>();
-//        List<String> source = Arrays.asList(strs);
-//
-//    }
-
     //1060 拼写单词
     public static int countCharacters(String[] words,String chars){
         int[] c = new int[26];
@@ -216,17 +210,48 @@ public class Strings {
         return res;
     }
 
+    //3.无重复字符的最长字串
+    public static int lengthOfLongestSubstring(String s){
+        int n = s.length(),ans = 0;
+        Map<Character,Integer> map = new HashMap<>();
+        for(int i = 0,j = 0;j < n;j++){
+            if(map.containsKey(s.charAt(j))){
+                i = Math.max(map.get(s.charAt(j)),i);
+            }
+            ans = Math.max(ans,j - i + 1);
+            map.put(s.charAt(j),j+1);
+        }
+        return ans;
+    }
+
+    //7整数反转
+    public static int reverse(int x) {
+        int ans = 0;
+        while(x != 0){
+            //边界值处理
+            if((ans*10) / 10 != ans){
+                ans = 0;
+                break;
+            }
+            ans = ans*10 + x % 10;
+            x /= 10;
+        }
+        return ans;
+    }
+
+
     public static void main(String... args){
 //        System.out.println(gcdOfStrings("aaaa","aa"));
 //        System.out.println(compressString(""));
 //        System.out.println(romanToInt("LVIII"));
 //        System.out.println(intToRoman(3489));
 //        System.out.println(isValid("()"));
-        String[] words = {"cat","bt","hat","tree"};
-        String chars = "atach";
-        System.out.println(countCharacters(words,chars));
-        System.out.println(longestPalindrome("babad"));
-        System.out.println(longestPalindrome("cbbd"));
+//        String[] words = {"cat","bt","hat","tree"};
+//        String chars = "atach";
+//        System.out.println(countCharacters(words,chars));
+//        System.out.println(longestPalindrome("babad"));
+//        System.out.println(longestPalindrome("cbbd"));
+        System.out.println(reverse(-2147448));
     }
 
 
