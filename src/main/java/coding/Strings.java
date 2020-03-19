@@ -139,17 +139,6 @@ public class Strings {
         }
         return sub;
     }
-//    public static void findLongestPalindrome(String s,int low,int high){
-//        while(low >= 0 && high < s.length()){
-//            if(s.charAt(low) == s.charAt(high)){
-//                if(high - low + 1 > maxLen){
-//                    maxLen = high - low + 1;
-//                    sub = s.substring(low,high+1);
-//                }
-//                low--;high++;
-//            }else break;
-//        }
-//    }
 
     //20 有效的括号
     public static boolean isValid(String s){
@@ -235,6 +224,22 @@ public class Strings {
             }
             ans = ans*10 + x % 10;
             x /= 10;
+        }
+        return ans;
+    }
+
+    //409最长回文串
+    public static int longestPalindromes(String s){
+        int[] count = new int[128];
+        for(char c : s.toCharArray()){
+            count[c]++;
+        }
+        int ans = 0;
+        for(int v :count){
+            ans += v/2 * 2;
+            if(v%2 == 1 && ans%2 == 0){
+                ans++;
+            }
         }
         return ans;
     }
