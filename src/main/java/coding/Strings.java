@@ -243,6 +243,26 @@ public class Strings {
         }
         return ans;
     }
+    //6.Z字形变换
+    public static String convert(String s, int numRows) {
+        if(numRows == 1) return s;
+        List<StringBuilder> rows = new ArrayList<>();
+        for(int i = 0;i < Math.min(numRows,s.length());i++)
+            rows.add(new StringBuilder());
+
+        int curRows = 0;
+        boolean goingDown = false;
+        for(char c : s.toCharArray()){
+            rows.get(curRows).append(c);
+            if(curRows == 0 || curRows == numRows-1) goingDown = !goingDown;
+            curRows += goingDown ? 1 : -1;
+        }
+        StringBuilder result = new StringBuilder();
+        for(StringBuilder sb : rows){
+            result.append(sb);
+        }
+        return result.toString();
+    }
 
 
     public static void main(String... args){
@@ -256,7 +276,8 @@ public class Strings {
 //        System.out.println(countCharacters(words,chars));
 //        System.out.println(longestPalindrome("babad"));
 //        System.out.println(longestPalindrome("cbbd"));
-        System.out.println(reverse(-2147448));
+//        System.out.println(reverse(-2147448));
+        System.out.println(convert("LEETCODEISHIRING",3));
     }
 
 
