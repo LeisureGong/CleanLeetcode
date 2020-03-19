@@ -62,7 +62,6 @@ public class DynamicProgramming {
 
     //72 编辑距离
     public static int minDistance(String word1, String word2) {
-
         int n1 = word1.length();
         int n2 = word2.length();
         //i和j分别代表word1和word2的长度，dp[i][j]表示将word1转为word2所需的做小操作次数
@@ -83,14 +82,53 @@ public class DynamicProgramming {
         }
         return dp[n1][n2];
     }
+    //84. 柱状图中最大的矩形
+    public static int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        int ans = 0;
+        for(int i = 0;i < n;i++){
+            int height = Integer.MAX_VALUE;
+            for(int j = i;j >0;j--){
+                height = Math.min(height,heights[j]);
+                ans = Math.max(ans,height*(i-j+1));
+            }
+        }
+        return ans;
+    }
+
+    //213打家劫舍II
+    public static int rob(int[] nums){
+        int n = nums.length;
+        if(n == 0) return 0;
+        if(n == 1) return nums[0];
+        if(n == 2) return Math.max(nums[0],nums[1]);
+        //dp数组
+        int[] dp = new int[n];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0],nums[1]);
+        //选了第一个房子，没选最后一个
+        for(int i = 2;i < n - 1;i++){
+            dp[i] = Math.max(dp[i-2]+nums[i],dp[i-1]);
+        }
+        int t = dp[n-2];
+        //选了最后一个房子，但没选第一个
+        dp[1] = nums[1];
+        dp[2] = Math.max(nums[1],nums[2]);
+        for(int i = 3;i <n;i++){
+            dp[i] = Math.max(dp[i-2]+nums[i],dp[i-1]);
+        }
+        return Math.max(t,dp[n-1]);
+    }
 
     public static void main(String... args){
 //        System.out.println(lengthOfLIS(new int[]{10,9,2,5,3,7,101,18}));
 //        System.out.println(uniquePaths(7,3));
 //        int[][] nums = {{1,3,1},{1,5,1},{4,2,1}};
 //        System.out.println(minPathSum(nums));
-        System.out.println(minDistance("","a"));
+//        System.out.println(minDistance("","a"));
+        System.out.println(rob(new int[]{1,2,3}));
     }
+
 
 
 
