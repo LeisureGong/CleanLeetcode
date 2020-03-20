@@ -13,25 +13,6 @@ import java.util.stream.Collectors;
  * @date 2020/3/9 11:52
  */
 public class BackTracking {
-//	public List<List<Integer>> permute(int[] nums){
-//		List<List<Integer>> result = new LinkedList();
-//		List<Integer> temp = new ArrayList<>();
-//		Arrays.stream(nums).forEach(i -> temp.add(i));
-//		int n = nums.length;
-//		backtrack(n,temp,result,0);
-//		return result;
-//	}
-//
-//	public void backtrack(int n,List<Integer> nums,List<List<Integer>> result,int first){
-//		if(first == n){
-//			result.add(new ArrayList<Integer>(nums));
-//		}
-//		for(int  i = first;i < n;i++){
-//			Collections.swap(nums,first,i);
-//			backtrack(n,nums,result,first+1);
-//			Collections.swap(nums,first,i);
-//		}
-//	}
 
 	//46全排列
 	public List<List<Integer>> permute(int[] nums){
@@ -73,6 +54,8 @@ public class BackTracking {
 			curr.removeLast();
 		}
 	}
+
+
 
 
 }

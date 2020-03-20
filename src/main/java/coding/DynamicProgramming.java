@@ -188,6 +188,7 @@ public class DynamicProgramming {
 //        System.out.println(minDistance("","a"));
         int num1[][] = {{1}};
         System.out.println(uniquePathsWithObstacles(num1));
+        String a;
     }
 
 
