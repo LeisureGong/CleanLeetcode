@@ -2,6 +2,7 @@ package coding;
 
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import java.util.Map;
  * @author gonglei
  * @date 2020/3/13 13:14
  */
-public class Arrays {
+public class ArraysCode {
 	//169多数元素,求众数
 	public static int majorityElement(int[] nums) {
 		int i = 0;//index
@@ -98,12 +99,27 @@ public class Arrays {
 		return false;
 	}
 
+	//945使数组唯一的最小增量
+	public static int minIncrementForUnique(int[] A) {
+		if(A.length <= 1) return 0;
+		int result = 0;
+		Arrays.sort(A);
+		int i = 1;
+		for(;i < A.length;i++){
+			while(A[i] <= A[i-1]){
+				A[i]++;
+				result++;
+			}
+		}
+		return result;
+	}
 
 	public static void main(String... args){
 //		System.out.println(findRepeatNumber(new int[]{2, 3, 1, 0, 2, 5, 3}));
-		int a[] = {0,0,1,1};
-		int b[] = {1,0,2,1};
-		System.out.println(isRectangleOverlap(a,b));
+//		int a[] = {0,0,1,1};
+//		int b[] = {1,0,2,1};
+//		System.out.println(isRectangleOverlap(a,b));
+		System.out.println(minIncrementForUnique(new int[]{3,2,1,2,1,7}));
 	}
 
 }
