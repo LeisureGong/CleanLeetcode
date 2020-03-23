@@ -217,12 +217,12 @@ public class Strings {
     public static int reverse(int x) {
         int ans = 0;
         while(x != 0){
+            ans = ans*10 + x % 10;
             //边界值处理
             if((ans*10) / 10 != ans){
                 ans = 0;
                 break;
             }
-            ans = ans*10 + x % 10;
             x /= 10;
         }
         return ans;
