@@ -264,6 +264,31 @@ public class Strings {
         return result.toString();
     }
 
+    //242. 有效的字母异位词
+    public static boolean isAnagram(String s, String t) {
+        if(t.length() != s.length()) return false;
+        Map<Character,Integer> map = new HashMap<Character, Integer>();
+        for(char a : s.toCharArray()){
+            if(!map.containsKey(a)){
+                map.put(a,1);
+            }else{
+                map.replace(a,map.get(a)+1);
+            }
+        }
+        for(char c : t.toCharArray()){
+            if(map.containsKey(c)){
+                if(map.get(c) <= 0){
+                    return false;
+                }else{
+                    map.replace(c,map.get(c)-1);
+                }
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public static void main(String... args){
 //        System.out.println(gcdOfStrings("aaaa","aa"));
@@ -277,7 +302,8 @@ public class Strings {
 //        System.out.println(longestPalindrome("babad"));
 //        System.out.println(longestPalindrome("cbbd"));
 //        System.out.println(reverse(-2147448));
-        System.out.println(convert("LEETCODEISHIRING",3));
+//        System.out.println(convert("LEETCODEISHIRING",3));
+        System.out.println(isAnagram("an","naa"));
     }
 
 
