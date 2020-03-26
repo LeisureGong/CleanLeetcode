@@ -114,12 +114,36 @@ public class ArraysCode {
 		return result;
 	}
 
+	//1013. 将数组分成和相等的三个部分
+	public static boolean canThreePartsEqualSum(int[] A) {
+		//先求出总和,每等份的和为sum/3
+		int sum = 0;
+		for (int num : A)
+			sum += num;
+		if (sum % 3 != 0) return false;
+		sum /= 3;
+		int count = 0,currSum = 0;
+		for(int i = 0;i < A.length;i++){
+			currSum += A[i];
+			if(currSum == sum){
+				currSum = 0;
+				count++;
+			}
+			if(count == 2) return true;
+		}
+		return false;
+	}
+
+
+
 	public static void main(String... args){
 //		System.out.println(findRepeatNumber(new int[]{2, 3, 1, 0, 2, 5, 3}));
 //		int a[] = {0,0,1,1};
 //		int b[] = {1,0,2,1};
 //		System.out.println(isRectangleOverlap(a,b));
-		System.out.println(minIncrementForUnique(new int[]{3,2,1,2,1,7}));
+//		System.out.println(minIncrementForUnique(new int[]{3,2,1,2,1,7}));
+		System.out.println(canThreePartsEqualSum(new int[]{0,2,1,-6,6,-7,9,1,2,0,1}));
 	}
+
 
 }
