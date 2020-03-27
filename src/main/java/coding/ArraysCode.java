@@ -2,6 +2,7 @@ package coding;
 
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -134,6 +135,32 @@ public class ArraysCode {
 		return false;
 	}
 
+	//914卡牌分组
+	public static boolean hasGroupsSizeX(int[] deck) {
+		//临界点
+		if(deck.length < 2) return false;
+		Map<Integer,Integer> map = new HashMap<>();
+		for(int a : deck){
+			map.put(a,map.getOrDefault(a,0)+1);
+		}
+		Integer[] nums = new Integer[map.size()];
+		map.values().toArray(nums);
+		int result = getMoreBigDiv(nums,map.size());
+		return result == 1 ? false : true;
+
+
+	}
+	//求一组数的最大公约数
+	public static int getMoreBigDiv(Integer nums[],int n){
+		if(n == 1) return nums[n-1];
+		return getBigDiv(nums[n-1],getMoreBigDiv(nums,n-1));
+	}
+	//求两个数的最大公约数
+	public static int getBigDiv(int a,int b){
+		if(b == 0) return a;
+		return getBigDiv(b,a%b);
+	}
+
 
 
 	public static void main(String... args){
@@ -142,8 +169,10 @@ public class ArraysCode {
 //		int b[] = {1,0,2,1};
 //		System.out.println(isRectangleOverlap(a,b));
 //		System.out.println(minIncrementForUnique(new int[]{3,2,1,2,1,7}));
-		System.out.println(canThreePartsEqualSum(new int[]{0,2,1,-6,6,-7,9,1,2,0,1}));
+//		System.out.println(canThreePartsEqualSum(new int[]{0,2,1,-6,6,-7,9,1,2,0,1}));
+		System.out.println(hasGroupsSizeX(new int[]{1,1}));
 	}
+
 
 
 }
