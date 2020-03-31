@@ -21,6 +21,30 @@ public class DynamicProgramming {
         }
         return maxAns;
     }
+    //最长上升子序列-二分查找法
+    public int lengthOfLISGreedy(int[] nums){
+        int[] top = new int[nums.length];
+        //堆的数目，即结果
+        int piles = 0;
+        for(int i = 0;i < nums.length;i++){
+            //当前数字
+            int poker = nums[i];
+            //binary search
+            int l = 0,r = piles;
+            while(l < r){
+                int m = (l+r)/2;
+                if(top[m] >= poker){
+                    r = m;
+                }else if(top[m] < poker){
+                    l = m + 1;
+                }
+            }
+
+            if(l == piles) piles++;
+            top[l] = poker;
+        }
+        return piles;
+    }
 
     //62不同路径
     public static int uniquePaths(int m,int n){
@@ -177,6 +201,8 @@ public class DynamicProgramming {
         }
         return Math.max(t,dp[n-1]);
     }
+
+
 
     public static void main(String... args){
 //        System.out.println(lengthOfLIS(new int[]{10,9,2,5,3,7,101,18}));
