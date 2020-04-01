@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class Huawei {
     public static void main(String[] args){
-        Scanner sc = new Scanner(new BufferedInputStream(System.in));
-        String words = sc.nextLine();
-        System.out.println(lastLength(words));
+//        Scanner sc = new Scanner(new BufferedInputStream(System.in));
+//        String words = sc.nextLine();
+//        System.out.println(lastLength(words));
     }
 
     public static int lastLength(String words){
