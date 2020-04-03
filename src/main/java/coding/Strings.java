@@ -216,16 +216,40 @@ public class Strings {
     //7整数反转
     public static int reverse(int x) {
         int ans = 0;
-        while(x != 0){
-            ans = ans*10 + x % 10;
+        while (x != 0) {
+            ans = ans * 10 + x % 10;
             //边界值处理
-            if((ans*10) / 10 != ans){
+            if ((ans * 10) / 10 != ans) {
                 ans = 0;
                 break;
             }
             x /= 10;
         }
         return ans;
+    }
+
+    //字符串转整数
+    private static final int maxDiv10 = Integer.MAX_VALUE / 10;
+    public static int atoi(String str){
+        int i = 0,n = str.length();
+        while(i<n && Character.isWhitespace(str.charAt(i))) i++;
+        int sign = 1;
+        if(i<n && str.charAt(i)=='+'){
+            i++;
+        }else if(i<n && str.charAt(i)=='-'){
+            sign = -1;
+            i++;
+        }
+        int num = 0;
+        while(i < n && Character.isDigit(str.charAt(i))){
+            int digit = Character.getNumericValue(str.charAt(i));
+            if(num > maxDiv10 || num == maxDiv10 && digit >= 8){
+                return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            }
+            num = num * 10 + digit;
+            i++;
+        }
+        return sign*num;
     }
 
     //409最长回文串
