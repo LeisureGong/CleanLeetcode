@@ -313,6 +313,27 @@ public class Strings {
         return true;
     }
 
+    //38外观数列
+    public static String countAndSay(int n) {
+        StringBuilder res = new StringBuilder();
+        String result = "1";
+        for(int i = 1;i < n;i++){
+            res.setLength(0);
+            res.append(result);
+            int j = 0,len = res.length();
+            while(j < len){
+                char c = res.charAt(j);
+                int count = 1;
+                while(++j < len && c == res.charAt(j)){
+                    count++;
+                }
+                res.append(count).append(c);
+            }
+            result = res.toString().substring(len);
+        }
+        return result;
+    }
+
 
     public static void main(String... args){
 //        System.out.println(gcdOfStrings("aaaa","aa"));
@@ -327,8 +348,10 @@ public class Strings {
 //        System.out.println(longestPalindrome("cbbd"));
 //        System.out.println(reverse(-2147448));
 //        System.out.println(convert("LEETCODEISHIRING",3));
-        System.out.println(isAnagram("an","naa"));
+//        System.out.println(isAnagram("an","naa"));
+        System.out.println(countAndSay(5));
     }
+
 
 
 
