@@ -161,6 +161,55 @@ public class ArraysCode {
 		return getBigDiv(b,a%b);
 	}
 
+	public static int trap(int[] height) {
+		int left = 0,right = height.length - 1;
+		int left_max = 0,right_max = 0;
+		int ans = 0;
+		while(left < right){
+			if(height[left] < height[right]){
+				if(height[left] >= left_max) left_max = height[left];
+				else ans += (left_max - height[left]);
+				++left;
+			}else{
+				if(height[right] >= right_max) right_max = height[right];else ans += (right_max - height[right]);
+			}
+		}
+		return ans;
+	}
+
+	//289 game of life
+	public static void gameOfLife(int[][] board) {
+		int m = board.length;
+		int n = board[0].length;
+		//原地，遍历两次，第一遍记录周围周围位置，第二遍修改状态
+		//如果本身是1则乘10
+		for(int i = 0;i<m;i++){
+			for(int j = 0;j < n;j++){
+				if(board[i][j] == 1) board[i][j] = 10;
+			}
+		}
+		for(int i = 0;i < m;i++){
+			for(int j = 0;j < n;j++){
+				int count = 0;//计算周围存活数量
+				if(i-1>=0 && board[i-1][j] >= 10)count++;
+				if(i+1<m && board[i+1][j] >= 10)count++;
+				if(j-1>=0 && board[i][j-1] >= 10)count++;
+				if(j+1<n && board[i][j+1] >= 10)count++;
+				if(i-1>=0 && j-1>=0 &&board[i-1][j-1] >= 10)count++;
+				if(i-1>=0&&j+1<n &&board[i-1][j+1]>= 10)count++;
+				if(i+1<m&&j-1>=0&&board[i+1][j-1]>= 10)count++;
+				if(i+1<m&&j+1<n&&board[i+1][j+1]>= 10)count++;
+				board[i][j] += count;
+			}
+		}
+		for(int i = 0;i < m;i++){
+			for(int j = 0;j < n;j++){
+				int k = board[i][j];
+				if(k == 3 ||k == 12 || k== 13) board[i][j] = 1;
+				else board[i][j] = 0;
+			}
+		}
+	}
 
 
 	public static void main(String... args){
@@ -170,8 +219,13 @@ public class ArraysCode {
 //		System.out.println(isRectangleOverlap(a,b));
 //		System.out.println(minIncrementForUnique(new int[]{3,2,1,2,1,7}));
 //		System.out.println(canThreePartsEqualSum(new int[]{0,2,1,-6,6,-7,9,1,2,0,1}));
-		System.out.println(hasGroupsSizeX(new int[]{1,1}));
+//		System.out.println(hasGroupsSizeX(new int[]{1,1}));
+//		System.out.println(trap(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
+//		rotate(new int[][]{{1,2,3},{4,5,6},{7,8,9}});
+		gameOfLife(new int[][]{{0,1,0},{0,0,1},{1,1,1},{0,0,0}});
 	}
+
+
 
 
 
