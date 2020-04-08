@@ -211,20 +211,49 @@ public class ArraysCode {
 		}
 	}
 
+
 	public static int movingCount(int m, int n, int k) {
 		int result = 0;
 		boolean[][] visited = new boolean[m][n];
-		backtracking(0,0,m,n,k,visited,result);
+		result = backtracking(0,0,m,n,k,visited,result);
 		//注意，机器人只能向右或向下走
 		return result;
 	}
 
-	public static void backtracking(int x,int y,int m,int n,int k,boolean[][] visited,int result){
-		if(x < 0 || x >= m || y < 0 || y >= n ||(x/10 + x%10 + y/10 + y%10)> k || visited[x][y]) return;
+	public static int backtracking(int x,int y,int m,int n,int k,boolean[][] visited,int result){
+		if(x < 0 || x >= m || y < 0 || y >= n ||(x/10 + x%10 + y/10 + y%10)> k || visited[x][y]) return 0;
 		visited[x][y] = true;
-		backtracking(x+1,y,m,n,k,visited,result+1);
-		backtracking(x,y,m,n,k,visited,result+1);
+		return backtracking(x+1,y,m,n,k,visited,result)+backtracking(x,y+1,m,n,k,visited,result)+1;
+	}
 
+	public static int[] distributeCandies(int candies, int num_people) {
+		int[] result = new int[num_people];
+		int base = (1 + num_people)*num_people/2;
+		int sum = 0;
+		int account = num_people*num_people;
+		int i = 0;
+		while((sum + account*i + base )< candies){
+			sum += account*i + base;
+			i++;
+		}
+		for(int j = 0;j < num_people;j++){
+			result[j] = (j+1)*i + num_people*i*(i-1)/2;
+		}
+		int temp = candies - sum;
+		//当前第一个数
+		int t = num_people*i + 1;
+		int j = 0;
+		while(temp > 0){
+			if(temp > t){
+				result[j] += t;
+				temp = temp - t;
+				j++;t++;
+			}else{
+				result[j] += temp;
+				break;
+			}
+		}
+		return result;
 	}
 
 
@@ -239,7 +268,8 @@ public class ArraysCode {
 //		System.out.println(trap(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
 //		rotate(new int[][]{{1,2,3},{4,5,6},{7,8,9}});
 //		gameOfLife(new int[][]{{0,1,0},{0,0,1},{1,1,1},{0,0,0}});
-		System.out.println(movingCount(2,3,1));
+//		System.out.println(movingCount(3,1,0));
+		System.out.println(distributeCandies(10,3));
 	}
 
 
