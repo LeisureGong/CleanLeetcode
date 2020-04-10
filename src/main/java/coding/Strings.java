@@ -334,6 +334,35 @@ public class Strings {
         return result;
     }
 
+    //151翻转单词
+    public static String reverseWords(String s) {
+        //去除首尾空格
+        s = s.trim();
+        s = s.replaceAll("\\s+"," ");
+        s = new StringBuilder(s).reverse().toString();
+        char[] chars = s.toCharArray();
+        int slow = 0,fast = 0;
+        while(fast < chars.length){
+            if(fast == chars.length-1 || chars[fast+1] == ' '){
+                strSwap(chars,slow,fast);
+                if(fast != chars.length-1){
+                    slow = fast+2;
+                }
+            }
+            fast++;
+        }
+        return String.valueOf(chars);
+    }
+
+    public static void strSwap(char[] s,int left,int right){
+        while(left < right){
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+            left++;right--;
+        }
+    }
+
 
     public static void main(String... args){
 //        System.out.println(gcdOfStrings("aaaa","aa"));
@@ -349,7 +378,8 @@ public class Strings {
 //        System.out.println(reverse(-2147448));
 //        System.out.println(convert("LEETCODEISHIRING",3));
 //        System.out.println(isAnagram("an","naa"));
-        System.out.println(countAndSay(5));
+//        System.out.println(countAndSay(5));
+        System.out.println(reverseWords("Hello    World  "));
     }
 
 
