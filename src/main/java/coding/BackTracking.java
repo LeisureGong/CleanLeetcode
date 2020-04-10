@@ -48,9 +48,10 @@ public class BackTracking {
 		return;
 	}
 
-	//39.组合总和
+	//40.组合总和II
 	public static List<List<Integer>> combinationSum(int[] candidates, int target) {
 		if(candidates.length <= 0 ) return Collections.emptyList();
+		Arrays.sort(candidates);
 		List<List<Integer>> result = new ArrayList<>();
 		combinationBackTrack(result,new ArrayList<>(),target,0,candidates);
 		return result;
@@ -59,12 +60,12 @@ public class BackTracking {
 	public static void combinationBackTrack(List<List<Integer>> result,List<Integer> temp,int target,int first,int[] candidates){
 		if(target < 0) return;
 		if(target == 0){
-			result.add(new ArrayList<>(temp));
+			if(!result.contains(temp))
+				result.add(new ArrayList<>(temp));
 		}else{
 			for(int i = first;i < candidates.length;i++){
 				temp.add(candidates[i]);
-				//因为每个数字都可以使用无数次，所以递归还可以从当前元素开始
-				combinationBackTrack(result,temp,target-candidates[i],i,candidates);
+				combinationBackTrack(result,temp,target-candidates[i],i+1,candidates);
 				temp.remove(temp.size() - 1);
 			}
 		}
@@ -112,9 +113,7 @@ public class BackTracking {
 	}
 
 	public static void main(String... args){
-//		System.out.println(generateParenthesis(10));
-//		System.out.println(combinationSum(new int[]{2,3,6,7},7));
-		System.out.println(generateParenthesisUsingBackTrack(3));
+		combinationSum(new int[]{10,1,2,7,6,1,5},8);
 	}
 
 }
