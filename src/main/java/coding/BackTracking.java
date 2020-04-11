@@ -1,10 +1,6 @@
 package coding;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author gonglei
@@ -112,8 +108,74 @@ public class BackTracking {
 		}
 	}
 
+
+	//79. 单词搜索
+	static boolean flag = false;
+	public static boolean exist(char[][] board, String word) {
+		if(board.length == 0 || word.length() == 0) return false;
+		for(int i = 0;i < board.length;i++){
+			for(int j = 0;j < board[0].length;j++){
+				//找到第一个字符，才开始回溯
+				if(board[i][j] == word.charAt(0)){
+					boolean[][] road = new boolean[board.length][board[0].length];
+					wordBacktrack(board,word,i,j,0,road);
+					if(flag) return true;
+				}
+			}
+		}
+		return false;
+	}
+	public static void wordBacktrack(char[][] board,String word,int i,int j,int len,boolean[][] road){
+		if(flag) return;//剪枝，否则容易超时
+		road[i][j] = true;
+		//剪枝
+		if(i < 0 || i >= board.length || j < 0 | j >= board[0].length) return;
+		if(len == word.length()-1){
+			flag = true;
+			return;
+		}
+		//要过滤已经走过的路径
+		//up
+		if((i-1) >= 0 && board[i-1][j] == word.charAt(len+1) && !road[i-1][j]) wordBacktrack(board,word,i-1,j,len+1,road);
+		//down
+		if((i+1) < board.length && board[i+1][j] == word.charAt(len+1) && !road[i+1][j]) wordBacktrack(board,word,i+1,j,len+1,road);
+		//left
+		if((j-1) >= 0 && board[i][j-1] == word.charAt(len+1) && !road[i][j-1]) wordBacktrack(board,word,i,j-1,len+1,road);
+		//right
+		if((j+1) < board[0].length && board[i][j+1] == word.charAt(len+1) && !road[i][j+1]) wordBacktrack(board,word,i,j+1,len+1,road);
+		road[i][j] = false;
+	}
+
+	//89格雷编码
+	public static List<Integer> grayCode(int n) {
+		if(n == 0) return Arrays.asList(0);
+		List<Integer> result = new ArrayList<>();
+
+		return null;
+	}
+
+	//90子集II
+	public static List<List<Integer>> subsetsWithDup(int[] nums) {
+		List<List<Integer>> results = new ArrayList<>();
+		results.add(Collections.emptyList());
+		Arrays.sort(nums);
+		setBacktrack(results,new ArrayList<>(),nums,0);
+		return results;
+	}
+	public static void setBacktrack(List<List<Integer>> res,List<Integer> temp,int[] nums,int first){
+//		if(temp.size() > k) return;//剪枝
+		if(!res.contains(temp)){
+			res.add(new ArrayList<>(temp)); //一定要new
+		}
+		for(int i = first;i < nums.length;i++){
+			temp.add(nums[i]);
+			setBacktrack(res,temp,nums,i+1);//注意是i+1，还是first+1
+			temp.remove(temp.size()-1);
+		}
+	}
+
 	public static void main(String... args){
-		combinationSum(new int[]{10,1,2,7,6,1,5},8);
+		subsetsWithDup(new int[]{1,2,2});
 	}
 
 }
