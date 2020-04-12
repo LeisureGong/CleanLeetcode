@@ -1,5 +1,9 @@
 package coding;
 
+import sun.jvm.hotspot.utilities.GrowableArray;
+
+import java.util.Arrays;
+
 public class DynamicProgramming {
 
     //300.最长上升子序列
@@ -202,6 +206,43 @@ public class DynamicProgramming {
         return Math.max(t,dp[n-1]);
     }
 
+    //79. 单词搜索
+    static boolean flag = false;
+    public static boolean exist(char[][] board, String word) {
+        if(board.length == 0 || word.length() == 0) return false;
+        for(int i = 0;i < board.length;i++){
+            for(int j = 0;j < board[0].length;j++){
+                //找到第一个字符，才开始回溯
+                if(board[i][j] == word.charAt(0)){
+                    boolean[][] road = new boolean[board.length][board[0].length];
+                    wordBacktrack(board,word,i,j,0,road);
+                    if(flag) return true;
+                }
+            }
+        }
+        return false;
+    }
+    public static void wordBacktrack(char[][] board,String word,int i,int j,int len,boolean[][] road){
+        if(flag) return;//剪枝，否则容易超时
+        road[i][j] = true;
+        //剪枝
+        if(i < 0 || i >= board.length || j < 0 | j >= board[0].length) return;
+        if(len == word.length()-1){
+            flag = true;
+            return;
+        }
+        //要过滤已经走过的路径
+        //up
+        if((i-1) >= 0 && board[i-1][j] == word.charAt(len+1) && !road[i-1][j]) wordBacktrack(board,word,i-1,j,len+1,road);
+        //down
+        if((i+1) < board.length && board[i+1][j] == word.charAt(len+1) && !road[i+1][j]) wordBacktrack(board,word,i+1,j,len+1,road);
+        //left
+        if((j-1) >= 0 && board[i][j-1] == word.charAt(len+1) && !road[i][j-1]) wordBacktrack(board,word,i,j-1,len+1,road);
+        //right
+        if((j+1) < board[0].length && board[i][j+1] == word.charAt(len+1) && !road[i][j+1]) wordBacktrack(board,word,i,j+1,len+1,road);
+        road[i][j] = false;
+    }
+
 
 
     public static void main(String... args){
@@ -212,9 +253,9 @@ public class DynamicProgramming {
 //        System.out.println(minDistance("","a"));
 //        System.out.println(rob(new int[]{1,2,3}));
 //        System.out.println(minDistance("","a"));
-        int num1[][] = {{1}};
-        System.out.println(uniquePathsWithObstacles(num1));
-        String a;
+       char[][] board = {{'A','B','C','E'},
+               {'S','F','E','S'},{'A','D','E','E'}};
+       System.out.println(exist(board,"ABCESEEEFS"));
     }
 
 
