@@ -334,6 +334,20 @@ public class Strings {
         return result;
     }
 
+    public static String convertToTitle(int n) {
+        char[] dict = new char[]{'Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N',
+                'O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+        String res = "";
+        while(n / 26 >= 1){
+            int mod = n % 26;
+            res = dict[mod] + res;
+            n = (n - (mod == 0 ? 26 : mod)) / 26;
+        }
+        if(n != 0)
+        res = dict[n] + res;
+        return res;
+    }
+
 
     public static void main(String... args){
 //        System.out.println(gcdOfStrings("aaaa","aa"));
@@ -349,8 +363,10 @@ public class Strings {
 //        System.out.println(reverse(-2147448));
 //        System.out.println(convert("LEETCODEISHIRING",3));
 //        System.out.println(isAnagram("an","naa"));
-        System.out.println(countAndSay(5));
+//        System.out.println(countAndSay(5));
+        System.out.println(convertToTitle(26));
     }
+
 
 
 
