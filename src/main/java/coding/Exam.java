@@ -1,5 +1,9 @@
 package coding;
 
+import java.io.BufferedInputStream;
+import java.util.Arrays;
+import java.util.Scanner;
+
 /**
  * @author gonglei
  * @date 2020/3/23 17:16
@@ -36,6 +40,7 @@ public class Exam {
 				if(text1[i] == text2[j]){
 					dp[i][j] = dp[i-1][j-1] + 1;
 				}else{
+					//最优子结构方程
 					dp[i][j] = Math.max(dp[i-1][j],dp[i][j-1]);
 				}
 			}
@@ -44,7 +49,12 @@ public class Exam {
 	}
 
 	public static void main(String... args){
-		System.out.println(longestCommonSubsequence("abcde","ace"));
+		Scanner sc = new Scanner(new BufferedInputStream(System.in));
+
+
+
+
 	}
+
 
 }
