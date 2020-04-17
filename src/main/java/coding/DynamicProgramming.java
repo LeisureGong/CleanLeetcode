@@ -1,6 +1,9 @@
 package coding;
 
-import java.util.*;
+
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
+import java.util.Arrays;
 
 public class DynamicProgramming {
 
@@ -166,6 +169,7 @@ public class DynamicProgramming {
         }
         return dp[n1][n2];
     }
+
     //84. 柱状图中最大的矩形
     public static int largestRectangleArea(int[] heights) {
         int n = heights.length;
@@ -204,6 +208,38 @@ public class DynamicProgramming {
         return Math.max(t,dp[n-1]);
     }
 
+    //338比特位计数
+    public static int[] countBits(int num){
+        int[] result = new int[num+1];
+        result[0] = 0;
+        for(int i = 1;i < num+1;i++){
+            result[i] = result[i & (i-1)] + 1;
+        }
+        return result;
+    }
+
+    //343整数拆分
+    public static int integerBreak(int n){
+        if(n == 2) return 1;
+        if(n == 3) return 2;
+        int result = 1;
+        while(n > 4){
+            n = n - 3;
+            result *= 3;
+        }
+        return n*result;
+    }
+
+    //357. 计算各个位数不同的数字个数
+    public static int countNumbersWithUniqueDigits(int n) {
+        int[] dp = new int[n+1];
+        dp[0] = 1;
+        dp[1] = 10;
+        for(int i = 2;i <= n;i++){
+            dp[i] = dp[i-1] + (dp[i-1]-dp[i-2])*(10-(i-1));
+        }
+        return dp[n];
+    }
     public static void main(String... args){
 //        System.out.println(lengthOfLIS(new int[]{10,9,2,5,3,7,101,18}));
 //        System.out.println(uniquePaths(7,3));
@@ -212,6 +248,8 @@ public class DynamicProgramming {
 //        System.out.println(minDistance("","a"));
 //        System.out.println(rob(new int[]{1,2,3}));
 //        System.out.println(minDistance("","a"));
+//        System.out.println(Arrays.toString(countBits(10)));
+        System.out.println(countNumbersWithUniqueDigits(2));
     }
 
 

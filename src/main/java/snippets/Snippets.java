@@ -38,6 +38,7 @@ import java.util.stream.Stream;
 
 public abstract class Snippets {
 
+
     /**
      * Calculates the greatest common denominator (gcd) of an array of numbers
      *

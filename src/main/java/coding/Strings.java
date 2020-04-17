@@ -334,18 +334,33 @@ public class Strings {
         return result;
     }
 
-    public static String convertToTitle(int n) {
-        char[] dict = new char[]{'Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N',
-                'O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-        String res = "";
-        while(n / 26 >= 1){
-            int mod = n % 26;
-            res = dict[mod] + res;
-            n = (n - (mod == 0 ? 26 : mod)) / 26;
+    //151翻转单词
+    public static String reverseWords(String s) {
+        //去除首尾空格
+        s = s.trim();
+        s = s.replaceAll("\\s+"," ");
+        s = new StringBuilder(s).reverse().toString();
+        char[] chars = s.toCharArray();
+        int slow = 0,fast = 0;
+        while(fast < chars.length){
+            if(fast == chars.length-1 || chars[fast+1] == ' '){
+                strSwap(chars,slow,fast);
+                if(fast != chars.length-1){
+                    slow = fast+2;
+                }
+            }
+            fast++;
         }
-        if(n != 0)
-        res = dict[n] + res;
-        return res;
+        return String.valueOf(chars);
+    }
+
+    public static void strSwap(char[] s,int left,int right){
+        while(left < right){
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+            left++;right--;
+        }
     }
 
 
@@ -364,9 +379,8 @@ public class Strings {
 //        System.out.println(convert("LEETCODEISHIRING",3));
 //        System.out.println(isAnagram("an","naa"));
 //        System.out.println(countAndSay(5));
-        System.out.println(convertToTitle(26));
+        System.out.println(reverseWords("Hello    World  "));
     }
-
 
 
 

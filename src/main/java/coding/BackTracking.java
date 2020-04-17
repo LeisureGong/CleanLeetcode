@@ -1,6 +1,10 @@
 package coding;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author gonglei
@@ -107,8 +111,6 @@ public class BackTracking {
 			curr.removeLast();
 		}
 	}
-
-
 	//79. 单词搜索
 	static boolean flag = false;
 	public static boolean exist(char[][] board, String word) {
@@ -146,36 +148,12 @@ public class BackTracking {
 		road[i][j] = false;
 	}
 
-	//89格雷编码
-	public static List<Integer> grayCode(int n) {
-		if(n == 0) return Arrays.asList(0);
-		List<Integer> result = new ArrayList<>();
-
-		return null;
-	}
-
-	//90子集II
-	public static List<List<Integer>> subsetsWithDup(int[] nums) {
-		List<List<Integer>> results = new ArrayList<>();
-		results.add(Collections.emptyList());
-		Arrays.sort(nums);
-		setBacktrack(results,new ArrayList<>(),nums,0);
-		return results;
-	}
-	public static void setBacktrack(List<List<Integer>> res,List<Integer> temp,int[] nums,int first){
-//		if(temp.size() > k) return;//剪枝
-		if(!res.contains(temp)){
-			res.add(new ArrayList<>(temp)); //一定要new
-		}
-		for(int i = first;i < nums.length;i++){
-			temp.add(nums[i]);
-			setBacktrack(res,temp,nums,i+1);//注意是i+1，还是first+1
-			temp.remove(temp.size()-1);
-		}
-	}
 
 	public static void main(String... args){
-		subsetsWithDup(new int[]{1,2,2});
+		combinationSum(new int[]{10,1,2,7,6,1,5},8);
+		char[][] board = {{'A','B','C','E'},
+				{'S','F','E','S'},{'A','D','E','E'}};
+		System.out.println(exist(board,"ABCESEEEFS"));
 	}
 
 }
