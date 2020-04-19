@@ -2,10 +2,7 @@ package coding;
 
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author gonglei
@@ -256,6 +253,36 @@ public class ArraysCode {
 		return result;
 	}
 
+	//四数之和
+	public static List<List<Integer>> fourSum(int[] nums, int target) {
+		List<List<Integer>> result = new ArrayList<>();
+		if(nums.length < 4) return result;
+		Arrays.sort(nums);
+		for(int i = 0;i < nums.length-3;i++){
+			for(int j = i+1;j < nums.length-2;j++){
+				int nowTarget = target - nums[i] - nums[j];
+				int l = j+1;//left pointer
+				int r = nums.length-1;//right pointer
+				while(l < r){
+					if(nums[l] + nums[r] == nowTarget){
+						List<Integer> curr = new ArrayList<>();
+						curr.add(nums[i]);
+						curr.add(nums[j]);
+						curr.add(nums[l]);
+						curr.add(nums[r]);
+						result.add(new ArrayList<>(curr));
+						l++;r--;
+						while(l<nums.length && nums[l]==nums[l-1])l++;
+						while(r>=l && nums[r]==nums[r+1])r--;
+					}else if(nums[l]+nums[r] > nowTarget){
+						r--;
+					}else l++;
+				}
+			}
+		}
+		return result;
+	}
+
 
 
 
@@ -271,8 +298,10 @@ public class ArraysCode {
 //		rotate(new int[][]{{1,2,3},{4,5,6},{7,8,9}});
 //		gameOfLife(new int[][]{{0,1,0},{0,0,1},{1,1,1},{0,0,0}});
 //		System.out.println(movingCount(3,1,0));
-		System.out.println(distributeCandies(10,3));
+//		System.out.println(distributeCandies(10,3));
+		System.out.println(fourSum(new int[]{1, 0, -1, 0, -2, 2},0));
 	}
+
 
 
 
