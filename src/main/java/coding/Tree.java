@@ -45,6 +45,32 @@ public class Tree {
 		return result;
 	}
 
+	//98 验证二叉搜索树
+	public static boolean isValidBST(TreeNode root) {
+		if(root == null) return true;
+		//检查中序序列是不是有序的
+		List<Integer> list = new ArrayList<>();
+		inOrder(root,list);
+		int i = 0;
+		while(i < list.size() && (i+1) < list.size()){
+			if(list.get(i) < list.get(i+1)){
+				i++;
+			}else{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static void inOrder(TreeNode root,List<Integer> result){
+		if(root != null){
+			inOrder(root.left,result);
+			result.add(root.val);
+			inOrder(root.right,result);
+		}
+	}
+
+
 	public static TreeNode stringToTreeNode(String input) {
 		input = input.trim();
 		input = input.substring(1, input.length() - 1);
@@ -112,11 +138,12 @@ public class Tree {
 		while ((line = in.readLine()) != null) {
 			TreeNode root = stringToTreeNode(line);
 
-			List<Integer> ret = inorderTraversal(root);
+//			List<Integer> ret = inorderTraversal(root);
+			boolean ret = isValidBST(root);
 
-			String out = integerArrayListToString(ret);
+//			String out = integerArrayListToString(ret);
 
-			System.out.print(out);
+			System.out.print(ret);
 		}
 	}
 }
