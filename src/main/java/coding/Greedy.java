@@ -12,4 +12,26 @@ public class Greedy {
         }
         return maxProfit;
     }
+    public boolean canJump(int[] nums) {
+        int end = nums.length;
+        int index = 0;
+        while(nums[index] != 0 && index < end){
+            int value = nums[index];
+            int temp = 0,tempIndex = 0;
+            for(int i = 1; i <= value;i++){
+                if(nums[index+i]+index+i > temp){
+                    tempIndex = index+i;
+                }
+            }
+            index = tempIndex;
+        }
+
+        if(index >= end){
+            return true;
+        }
+        return false;
+    }
+    public static void main(String... args){
+        System.out.println(new int[]{3,2,1,0,4});
+    }
 }
