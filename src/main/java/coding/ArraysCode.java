@@ -299,7 +299,9 @@ public class ArraysCode {
 //		gameOfLife(new int[][]{{0,1,0},{0,0,1},{1,1,1},{0,0,0}});
 //		System.out.println(movingCount(3,1,0));
 //		System.out.println(distributeCandies(10,3));
-		System.out.println(fourSum(new int[]{1, 0, -1, 0, -2, 2},0));
+		String a = "helko";
+		a.replace("lk","ll");
+		System.out.println(a);
 	}
 
 

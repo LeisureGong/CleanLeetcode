@@ -362,6 +362,30 @@ public class Strings {
             left++;right--;
         }
     }
+    //67二进制求和
+    public static String addBinary(String a, String b) {
+        // String ra = new StringBuilder(a).reverse().toString();
+        // String rb = new StringBuilder(b).reverse().toString();
+        StringBuilder suffix = new StringBuilder();
+        int alen = a.length();
+        int blen = b.length();
+        int carry = 0;
+        while(alen > 0 && blen > 0){
+            alen--;blen--;
+            char temp = (char) (a.charAt(alen) + (b.charAt(blen) - '0') + carry);
+            carry = (temp - '0') / 2;
+           suffix.append((temp - '0') % 2);
+        }
+        String prefix = alen > blen ? a.substring(0,alen-blen) : b.substring(0,blen-alen);
+        int plen = prefix.length();
+        while(carry == 1 && plen-- > 0){
+            char t = (char) (prefix.charAt(plen) + 1);
+            carry = (t - '0') / 2;
+            suffix.append((t - '0') % 2);
+        }
+        return carry == 1 ? "1" +  suffix.reverse().toString(): prefix.substring(0,plen) + suffix.reverse().toString();
+    }
+
 
 
     public static void main(String... args){
@@ -379,7 +403,7 @@ public class Strings {
 //        System.out.println(convert("LEETCODEISHIRING",3));
 //        System.out.println(isAnagram("an","naa"));
 //        System.out.println(countAndSay(5));
-        System.out.println(reverseWords("Hello    World  "));
+        System.out.println(addBinary("100","110010"));
     }
 
 
