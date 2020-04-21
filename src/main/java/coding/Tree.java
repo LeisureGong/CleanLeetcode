@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 /**
  * Collections of Tree
@@ -68,6 +69,49 @@ public class Tree {
 			result.add(root.val);
 			inOrder(root.right,result);
 		}
+	}
+
+	//102二叉树的层次遍历
+	public static List<List<Integer>> levelOrder(TreeNode root) {
+		if(root == null) return Collections.emptyList();
+		List<List<Integer>> lists = new ArrayList<>();
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		queue.add(root);
+		int level = 0;
+		while(!queue.isEmpty()){
+			lists.add(new ArrayList<>());
+
+			int level_length = queue.size();
+			for(int i = 0;i < level_length;i++){
+				TreeNode node = queue.remove();
+				lists.get(level).add(node.val);
+				if(node.left != null) queue.add(node.left);
+				if(node.right != null) queue.add(node.right);
+			}
+			level++;
+		}
+		Collections.reverse(lists);
+		return lists;
+	}
+
+	//二叉树的最小深度
+	public static int minDepth(TreeNode root) {
+		if(root == null) return 0;
+		Queue<TreeNode> queue = new LinkedList<>();
+		queue.add(root);
+		int level = 0;
+		while(!queue.isEmpty()){
+			level++;
+			//遍历一层,注意，这里要取队列的长度
+			int level_length = queue.size();
+			for(int i = 0;i < level_length;i++){
+				TreeNode node = queue.remove();
+				if(node.left == null || node.right == null && node != root) return level;
+				if(node.left != null) queue.add(node.left);
+				if(node.right != null) queue.add(node.right);
+			}
+		}
+		return level;
 	}
 
 
@@ -138,12 +182,14 @@ public class Tree {
 		while ((line = in.readLine()) != null) {
 			TreeNode root = stringToTreeNode(line);
 
-//			List<Integer> ret = inorderTraversal(root);
-			boolean ret = isValidBST(root);
+			minDepth(root);
+
+//			List<List<Integer>> ret = levelOrder(root);
+//			boolean ret = isValidBST(root);
 
 //			String out = integerArrayListToString(ret);
 
-			System.out.print(ret);
+//			System.out.print(ret);
 		}
 	}
 }
