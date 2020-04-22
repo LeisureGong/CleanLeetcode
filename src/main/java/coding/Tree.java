@@ -11,6 +11,8 @@ import java.util.Queue;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
+import static com.sun.deploy.config.Config.booleanToString;
+
 /**
  * Collections of Tree
  * @author gonglei
@@ -114,6 +116,33 @@ public class Tree {
 		return level;
 	}
 
+	//112求根到叶子节点路径之和
+	static int sum;
+	public static int sumNumbers(TreeNode root) {
+		if(root == null) return 0;
+		sum = 0;
+		preOrder(root,root.val);
+		return sum;
+	}
+	public static void preOrder(TreeNode node,int temp){
+		if(node.left == null && node.right==null){
+			sum += temp;
+			return;
+		}
+		if(node.left != null){
+			int lVal = node.left.val;
+			temp *= 10;
+			preOrder(node.left,  temp+lVal);
+			temp /= 10;
+		}
+		if(node.right != null){
+			int rVal = node.right.val;
+			temp *= 10;
+			preOrder(node.right, temp+rVal);
+			temp /= 10;
+		}
+	}
+
 
 	public static TreeNode stringToTreeNode(String input) {
 		input = input.trim();
@@ -181,15 +210,16 @@ public class Tree {
 		String line;
 		while ((line = in.readLine()) != null) {
 			TreeNode root = stringToTreeNode(line);
+//			line = in.readLine();
+//			int sum = Integer.parseInt(line);
 
-			minDepth(root);
+			sumNumbers(root);
 
-//			List<List<Integer>> ret = levelOrder(root);
-//			boolean ret = isValidBST(root);
-
-//			String out = integerArrayListToString(ret);
-
-//			System.out.print(ret);
+//			boolean ret = pathSum(root, sum);
+//
+//			String out = booleanToString(ret);
+//
+//			System.out.print(out);
 		}
 	}
 }

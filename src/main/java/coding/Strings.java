@@ -403,7 +403,13 @@ public class Strings {
 //        System.out.println(convert("LEETCODEISHIRING",3));
 //        System.out.println(isAnagram("an","naa"));
 //        System.out.println(countAndSay(5));
-        System.out.println(addBinary("100","110010"));
+        int n = 10;
+        n = n >>1;
+        while(n > 0){
+
+
+        }
+        System.out.println(11 & 1);
     }
 
 
