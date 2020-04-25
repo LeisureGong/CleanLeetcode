@@ -29,8 +29,42 @@ public class BinarySearch {
 		return count + divideSearch(dividend-tempDivisor,divisor);
 	}
 
+	// 搜索旋转排序数组
+	public static boolean search(int[] nums, int target) {
+		if(nums == null || nums.length == 0){
+			return false;
+		}
+		int low = 0,high = nums.length - 1,mid;
+		while(low <= high){
+			mid = low + (high-low)/2;
+			if(nums[mid] == target){
+				return true;
+			}
+			if(nums[low] == nums[mid]){
+				low++;
+				continue;
+			}
+			//前半部分有序
+			if(nums[low] < nums[mid]){
+				//target在前半部分
+				if(nums[mid] > target && nums[low] <= target){
+					high = mid - 1;
+				}else{
+					low = mid + 1;
+				}
+			}else{//后半部分有序
+				if(nums[mid] < target && nums[high] >= target){
+					low = mid + 1;
+				}else{
+					high = mid - 1;
+				}
+			}
+		}
+		return false;
+	}
+
 	public static void main(String... args){
-		System.out.println(divide(-2147483648,-2));
+		search(new int[]{2,5,6,0,0,1,2},1);
 	}
 
 }
