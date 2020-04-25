@@ -3,6 +3,8 @@ package coding;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.stream.Collectors;
 
 /**
  * @author gonglei
@@ -283,25 +285,111 @@ public class ArraysCode {
 		return result;
 	}
 
+	//合并区间
+	public static int[][] merge(int[][] intervals) {
+		int m = intervals.length;
+		//二维数组排序
+		Arrays.sort(intervals,(v1,v2) -> v1[0] - v2[0]);
+//		Arrays.sort(intervals,new Comparator<int[]>(){
+//			@Override
+//			public int compare(int[] o1,int[] o2){
+//				if(o1[0] < o2[0]){
+//					return -1;
+//				}else if(o1[0] > o2[0]){
+//					return 1;
+//				}else if(o1[1] < o2[1]){
+//					return -1;
+//				}else return 1;
+//			}
+//		});
+		int[][] res = new int[m][2];
+		res[0][0] = intervals[0][0];
+		res[0][1] = intervals[0][1];
+		int k = 0;
+		for(int i = 1;i < m;i++){
+			if(intervals[i][0] >= res[k][0] && intervals[i][0] <= res[k][1]){
+				if(intervals[i][1] > res[k][1]){
+					res[k][1] = intervals[i][1];
+				}
+			}else if(intervals[i][0] > res[k][1]){
+				k++;
+				res[k][0] = intervals[i][0];
+				res[k][1] = intervals[i][1];
+			}
+		}
+		return Arrays.copyOf(res,k+1);
+	}
 
+	//179最大数
+	public static String largestNumber(int[] nums) {
+		StringBuilder sb = new StringBuilder();
+		List<String> list = new ArrayList<>();
+		for(int i : nums){
+			list.add(String.valueOf(i));
+		}
+		sortByStartDigits(list);
+		for(String i : list){
+			sb.append(i);
+		}
+		return sb.toString();
+	}
 
+	public static void sortByStartDigits(List<String> nums){
+		Collections.sort(nums, new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				int i = 0,j = 0;
+				for(;i < o1.length() && j < o2.length();i++,j++){
+					if(o1.charAt(i) > o2.charAt(j)) return -1;
+					else if(o1.charAt(i) < o2.charAt(j)) return 1;
+				}
+				if(j == o2.length()){
+					if(o2.charAt(0) != o1.charAt(i-1))
+						//(30,3)
+						return  o1.charAt(i-1) - o2.charAt(0);
+						//(34,3)
+					else return -1;
+				}else{
+					if( o2.charAt(j-1) != o1.charAt(0)){
+						//(3,30)
+						return  o2.charAt(j-1) - o1.charAt(0);
+					}else{
+						//(3,31)
+						return -1;
+					}
+				}
+			}
+		});
+	}
 
+	public static  int compare(String o1, String o2) {
+		int i = 0,j = 0;
+		for(;i < o1.length() && j < o2.length();i++,j++){
+			if(o1.charAt(i) > o2.charAt(j)) return -1;
+			else if(o1.charAt(i) < o2.charAt(j)) return 1;
+		}
+		if(j == o2.length()){
+			if(o2.charAt(0) != o1.charAt(i-1))
+				//(30,3)
+				return  o1.charAt(i-1) - o2.charAt(0);
+			//(34,3)
+			else return -1;
+		}else{
+			if( o2.charAt(j-1) != o1.charAt(0)){
+				//(3,30)
+				return  o2.charAt(j-1) - o1.charAt(0);
+			}else{
+				//(3,31)
+				return -1;
+			}
+		}
+	}
 	public static void main(String... args){
-//		System.out.println(findRepeatNumber(new int[]{2, 3, 1, 0, 2, 5, 3}));
-//		int a[] = {0,0,1,1};
-//		int b[] = {1,0,2,1};
-//		System.out.println(isRectangleOverlap(a,b));
-//		System.out.println(minIncrementForUnique(new int[]{3,2,1,2,1,7}));
-//		System.out.println(canThreePartsEqualSum(new int[]{0,2,1,-6,6,-7,9,1,2,0,1}));
-//		System.out.println(hasGroupsSizeX(new int[]{1,1}));
-//		System.out.println(trap(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
-//		rotate(new int[][]{{1,2,3},{4,5,6},{7,8,9}});
-//		gameOfLife(new int[][]{{0,1,0},{0,0,1},{1,1,1},{0,0,0}});
-//		System.out.println(movingCount(3,1,0));
-//		System.out.println(distributeCandies(10,3));
-		String a = "helko";
-		a.replace("lk","ll");
-		System.out.println(a);
+//		String a = "helko";
+//		a.replace("lk","ll");
+//		System.out.println(a);
+		largestNumber(new int[]{3,30,34});
+//		System.out.println(compare("30","3"));
 	}
 
 

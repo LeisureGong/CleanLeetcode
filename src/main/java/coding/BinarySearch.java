@@ -64,7 +64,7 @@ public class BinarySearch {
 	}
 
 	public static void main(String... args){
-		search(new int[]{2,5,6,0,0,1,2},1);
+		System.out.println(7 & 5);
 	}
 
 }
