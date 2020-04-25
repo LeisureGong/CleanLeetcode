@@ -240,24 +240,25 @@ public class DynamicProgramming {
         }
         return dp[n];
     }
-    //466. 统计重复个数
-    public static int getMaxRepetitions(String s1, int n1, String s2, int n2) {
-        String str1 = "";
-        String str2 = "";
-
-        int count = 0;
-        int i = 0,j = 0;
-        while(i < str1.length()){
-            if(j < s2.length() && str1.charAt(i) == s2.charAt(j)){
-                i++;j++;
-            }else i++;
-            if(j == s2.length()){
-                count++;
-                j = 0;
-            }
-        }
-        return count/n2;
-    }
+	//209长度最小的子数组
+	public static int minSubArrayLen(int s, int[] nums) {
+		int res = nums.length;
+		int slow = 0,fast = 0;
+		int tempSum = nums[fast];
+		//遍历一次，做一次更新
+		while(fast < nums.length && slow < nums.length){
+			if(tempSum >= s){
+				res = Math.min(res,fast-slow+1);
+				tempSum -= nums[slow];
+				slow++;
+			}
+			else if(tempSum < s && fast < nums.length-1){
+				fast++;
+				tempSum += nums[fast];
+			}else slow++;
+		}
+		return res;
+	}
     public static void main(String... args){
 //        System.out.println(lengthOfLIS(new int[]{10,9,2,5,3,7,101,18}));
 //        System.out.println(uniquePaths(7,3));
@@ -267,7 +268,8 @@ public class DynamicProgramming {
 //        System.out.println(rob(new int[]{1,2,3}));
 //        System.out.println(minDistance("","a"));
 //        System.out.println(Arrays.toString(countBits(10)));
-        System.out.println(getMaxRepetitions("aaa",3,"aa",1));
+//        System.out.println(countNumbersWithUniqueDigits(2));
+	    minSubArrayLen(7,new int[]{2,3,1,2,4,3});
     }
 
 
