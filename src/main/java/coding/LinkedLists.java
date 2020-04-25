@@ -1,29 +1,34 @@
 package coding;
 
-//Definition for singly-linked list.
-class ListNode{
-    int val;
-    ListNode next;
-    ListNode(int x){
-        val = x;
-    }
-}
+
 
 public class LinkedLists {
 
-    public ListNode imergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode head = l1;
+    //Definition for singly-linked list.
+    static class ListNode{
+        int val;
+        ListNode next;
+        ListNode(int x){
+            val = x;
+        }
+    }
+
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode preHead = new ListNode(-1);
+        ListNode prev = preHead;
         //递归终止条件
-        while(l2.next != null){
+        while(l1 != null && l2 != null){
             if(l1.val <= l2.val){
+                prev.next = l1;
                 l1 = l1.next;
             }else{
-                ListNode temp = new ListNode(l2.val);
-                l1.next = temp;
-                temp.next = l1.next.next;
+                prev.next = l2;
+                l2 = l2.next;
             }
+            prev = prev.next;
         }
-        return head;
+        prev.next = l1 == null ? l2 : l1;
+        return preHead;
     }
 
     public static void main(String... args){

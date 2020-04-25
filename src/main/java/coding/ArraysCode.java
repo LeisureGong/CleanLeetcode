@@ -319,12 +319,13 @@ public class ArraysCode {
 	//179最大数
 	public static String largestNumber(int[] nums) {
 		StringBuilder sb = new StringBuilder();
-		List<String> list = new ArrayList<>();
-		for(int i : nums){
-			list.add(String.valueOf(i));
+		String[] strs = new String[nums.length];
+		for(int i = 0;i < nums.length;i++){
+			strs[i] = String.valueOf(nums[i]);
 		}
-		sortByStartDigits(list);
-		for(String i : list){
+//		sortByStartDigits(list);
+		Arrays.sort(strs,(o1,o2) -> (o2+o1).compareTo(o1+o2));
+		for(String i : strs){
 			sb.append(i);
 		}
 		return sb.toString();
@@ -334,58 +335,17 @@ public class ArraysCode {
 		Collections.sort(nums, new Comparator<String>() {
 			@Override
 			public int compare(String o1, String o2) {
-				int i = 0,j = 0;
-				for(;i < o1.length() && j < o2.length();i++,j++){
-					if(o1.charAt(i) > o2.charAt(j)) return -1;
-					else if(o1.charAt(i) < o2.charAt(j)) return 1;
-				}
-				if(j == o2.length()){
-					if(o2.charAt(0) != o1.charAt(i-1))
-						//(30,3)
-						return  o1.charAt(i-1) - o2.charAt(0);
-						//(34,3)
-					else return -1;
-				}else{
-					if( o2.charAt(j-1) != o1.charAt(0)){
-						//(3,30)
-						return  o2.charAt(j-1) - o1.charAt(0);
-					}else{
-						//(3,31)
-						return -1;
-					}
-				}
+				return 0;
 			}
 		});
 	}
 
-	public static  int compare(String o1, String o2) {
-		int i = 0,j = 0;
-		for(;i < o1.length() && j < o2.length();i++,j++){
-			if(o1.charAt(i) > o2.charAt(j)) return -1;
-			else if(o1.charAt(i) < o2.charAt(j)) return 1;
-		}
-		if(j == o2.length()){
-			if(o2.charAt(0) != o1.charAt(i-1))
-				//(30,3)
-				return  o1.charAt(i-1) - o2.charAt(0);
-			//(34,3)
-			else return -1;
-		}else{
-			if( o2.charAt(j-1) != o1.charAt(0)){
-				//(3,30)
-				return  o2.charAt(j-1) - o1.charAt(0);
-			}else{
-				//(3,31)
-				return -1;
-			}
-		}
-	}
+
 	public static void main(String... args){
 //		String a = "helko";
 //		a.replace("lk","ll");
 //		System.out.println(a);
 		largestNumber(new int[]{3,30,34});
-//		System.out.println(compare("30","3"));
 	}
 
 
