@@ -13,7 +13,7 @@ public class PriorityQueues {
 
 	/**
 	 * 对开始时间进行排序，如果相邻的时间没有重叠，则移除最早的那个时间
-	 * 堆的大小即为最大并集
+	 * 堆的大小即为最大并集（移除一个元素的同时也加入一个新元素,除非有新的更大size的并集，堆的大小才会改变）
 	 *
 	 * @param intervals [开始时间，结束时间]二维数组
 	 * @return 最大的并集
@@ -34,7 +34,7 @@ public class PriorityQueues {
 		return minHeap.size();
 	}
 	public static void main(String args[]){
-		int[][] times = new int[][]{{0,30},{31,40},{5,10},{7,8},{41,50}};
+		int[][] times = new int[][]{{0,30},{31,40},{5,10},{7,8},{41,50},{41,49},{42,49},{43,44},{42,48}};
 		System.out.println(maxCount(times));
 	}
 }
