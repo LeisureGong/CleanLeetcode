@@ -1,4 +1,4 @@
-package coding;
+package javapractice;
 
 import javafx.util.Pair;
 import jdk.internal.cmm.SystemResourcePressureImpl;
