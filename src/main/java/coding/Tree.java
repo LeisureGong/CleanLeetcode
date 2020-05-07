@@ -3,12 +3,7 @@ package coding;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.sun.deploy.config.Config.booleanToString;
@@ -143,6 +138,40 @@ public class Tree {
 		}
 	}
 
+	//中序和后序序列构建二叉树
+	public static TreeNode buildTree(int[] inorder, int[] postorder) {
+		//仿照从前序和中序遍历序列构造二叉树
+		if(postorder.length == 0) return null;
+
+		//找到root节点
+		int rootValue = postorder[postorder.length-1];
+		TreeNode root = new TreeNode(rootValue);
+		//fine the root index int the inorder array
+		int rootIndex = findIndex(inorder,rootValue);
+
+		//build the left child  tree
+		int[] leftPostorder = Arrays.copyOfRange(postorder,0,rootIndex);
+		int[] leftInorder = Arrays.copyOfRange(inorder,0,rootIndex);
+		root.left = buildTree(leftInorder,leftPostorder);
+
+		//build the right child tree
+		int[] rightPostorder = Arrays.copyOfRange(postorder,rootIndex,postorder.length-1);
+		int[] rightInorder = Arrays.copyOfRange(inorder,rootIndex+1,inorder.length);
+		root.right = buildTree(rightInorder,rightPostorder);
+
+		return root;
+	}
+
+	//find the index int the inorder array
+	public static int findIndex(int[] inorder,int value){
+		for(int i = 0;i < inorder.length;i++){
+			if(value == inorder[i]){
+				return i;
+			}
+		}
+		return -1;
+	}
+
 
 
 
@@ -207,21 +236,58 @@ public class Tree {
 		return integerArrayListToString(nums, nums.size());
 	}
 
+	public static int[] stringToIntegerArray(String input) {
+		input = input.trim();
+		input = input.substring(1, input.length() - 1);
+		if (input.length() == 0) {
+			return new int[0];
+		}
+
+		String[] parts = input.split(",");
+		int[] output = new int[parts.length];
+		for(int index = 0; index < parts.length; index++) {
+			String part = parts[index].trim();
+			output[index] = Integer.parseInt(part);
+		}
+		return output;
+	}
+
+	public static String treeNodeToString(TreeNode root) {
+		if (root == null) {
+			return "[]";
+		}
+
+		String output = "";
+		Queue<TreeNode> nodeQueue = new LinkedList<>();
+		nodeQueue.add(root);
+		while(!nodeQueue.isEmpty()) {
+			TreeNode node = nodeQueue.remove();
+
+			if (node == null) {
+				output += "null, ";
+				continue;
+			}
+
+			output += String.valueOf(node.val) + ", ";
+			nodeQueue.add(node.left);
+			nodeQueue.add(node.right);
+		}
+		return "[" + output.substring(0, output.length() - 2) + "]";
+	}
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		String line;
 		while ((line = in.readLine()) != null) {
-			TreeNode root = stringToTreeNode(line);
-//			line = in.readLine();
-//			int sum = Integer.parseInt(line);
+			int[] inorder = stringToIntegerArray(line);
+			line = in.readLine();
+			int[] postorder = stringToIntegerArray(line);
 
-			sumNumbers(root);
+			TreeNode ret = buildTree(inorder, postorder);
 
-//			boolean ret = pathSum(root, sum);
-//
-//			String out = booleanToString(ret);
-//
-//			System.out.print(out);
+			String out = treeNodeToString(ret);
+
+			System.out.print(out);
 		}
 	}
 }

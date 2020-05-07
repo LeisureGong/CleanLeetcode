@@ -339,13 +339,38 @@ public class ArraysCode {
 			}
 		});
 	}
+	//杨辉三角
+	public static List<List<Integer>> generate(int numRows) {
+		List<List<Integer>> res = new ArrayList();
+		res.add(Arrays.asList(1));
+		for (int i = 1; i < numRows; i++) {
+			List<Integer> row = new ArrayList();
+			row.add(1);
+			List<Integer> last = res.get(i - 1);
+			int j = 1;
+			for (; j < (i+1) / 2; j++) {
+				row.add(last.get(j - 1) + last.get(j));
+			}
+			List<Integer> temp = new ArrayList<>(row);
+			Collections.reverse(temp);
+			//假如当前行是偶数行
+			if (i % 2 == 1) {
+				row.addAll(temp);
+			} else {
+				row.add(last.get(j - 1) + last.get(j));
+				row.addAll(temp);
+			}
+			res.add(row);
+		}
+		return res;
+	}
 
 
 	public static void main(String... args){
 //		String a = "helko";
 //		a.replace("lk","ll");
 //		System.out.println(a);
-		largestNumber(new int[]{3,30,34});
+		generate(5);
 	}
 
 
