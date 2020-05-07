@@ -173,6 +173,38 @@ public class Tree {
 	}
 
 
+	// 二叉树最近公共祖先
+	public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+
+		Deque<TreeNode> deque = new ArrayDeque<>();
+		Map<TreeNode,TreeNode> parent = new HashMap<>();
+		deque.push(root);
+		parent.put(root,null);
+		while(!parent.containsKey(p) || !parent.containsKey(q)){
+
+			TreeNode node = deque.pop();
+
+			if(node.left != null){
+				parent.put(node.left,node);
+				deque.push(node.left);
+			}
+			if(node.right != null){
+				parent.put(node.right,node);
+				deque.push(node.right);
+			}
+		}
+		// p's ancestor
+		Set<TreeNode> ancestor = new HashSet<>();
+		while(p != null){
+			ancestor.add(p);
+			p = parent.get(p);
+		}
+		while(!ancestor.contains(q)){
+			q = parent.get(q);
+		}
+		return q;
+	}
+
 
 
 	public static TreeNode stringToTreeNode(String input) {
