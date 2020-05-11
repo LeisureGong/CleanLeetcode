@@ -259,6 +259,27 @@ public class DynamicProgramming {
 		}
 		return res;
 	}
+
+	//279完全平方数
+    public static int numSquares(int n) {
+        int[] dp = new int[n+1];
+        Arrays.fill(dp,Integer.MAX_VALUE);
+        dp[0] = 0;
+        int max_square_index = (int) Math.sqrt(n) + 1;
+        int[] square_num = new int[max_square_index];
+        for(int i = 1;i < max_square_index;i++){
+            square_num[i] = i*i;
+        }
+        for(int i = 1;i <= n;++i){
+            for(int s = 1;s < max_square_index;++s){
+                if(i < square_num[s]){
+                    break;
+                }
+                dp[i] = Math.min(dp[i],dp[i - square_num[s]]+1);
+            }
+        }
+        return dp[n];
+    }
     public static void main(String... args){
 //        System.out.println(lengthOfLIS(new int[]{10,9,2,5,3,7,101,18}));
 //        System.out.println(uniquePaths(7,3));
@@ -269,8 +290,10 @@ public class DynamicProgramming {
 //        System.out.println(minDistance("","a"));
 //        System.out.println(Arrays.toString(countBits(10)));
 //        System.out.println(countNumbersWithUniqueDigits(2));
-	    minSubArrayLen(7,new int[]{2,3,1,2,4,3});
+//	    minSubArrayLen(7,new int[]{2,3,1,2,4,3});
+        System.out.println(numSquares(12));
     }
+
 
 
 
