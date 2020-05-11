@@ -365,13 +365,32 @@ public class ArraysCode {
 		return res;
 	}
 
+	public static int mySqrt(int x) {
+		if(x == 0) return 0;
+		int left = 1,right = x;
+		while(left < right){
+			int mid = left + (right - left)/2;
+			if((mid <= x / mid) && ((mid+1) > x / (mid+1))){
+				return mid;
+			}else if(mid * mid > x){
+				right = mid;
+			}else{
+				left = mid + 1;
+			}
+		}
+		return -1;
+	}
+
 
 	public static void main(String... args){
 //		String a = "helko";
 //		a.replace("lk","ll");
 //		System.out.println(a);
-		generate(5);
+//		generate(5);
+		mySqrt(10000132);
+		Math.pow(10,2);
 	}
+
 
 
 
