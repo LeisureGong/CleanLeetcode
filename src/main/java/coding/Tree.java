@@ -206,6 +206,26 @@ public class Tree {
 	}
 
 
+	public static int kthLargest(TreeNode root, int k) {
+		Stack<TreeNode> stack = new Stack();
+		int res = -1;
+		while(root != null || !stack.isEmpty()){
+			while(root != null){
+				stack.push(root);
+				root = root.right;
+			}
+			TreeNode node = stack.pop();
+			k--;
+			if(k == 0){
+				res = node.val;
+				break;
+			}
+			node = node.left;
+		}
+		return res;
+	}
+
+
 
 	public static TreeNode stringToTreeNode(String input) {
 		input = input.trim();
@@ -251,73 +271,17 @@ public class Tree {
 		return root;
 	}
 
-	public static String integerArrayListToString(List<Integer> nums, int length) {
-		if (length == 0) {
-			return "[]";
-		}
-
-		String result = "";
-		for(int index = 0; index < length; index++) {
-			Integer number = nums.get(index);
-			result += Integer.toString(number) + ", ";
-		}
-		return "[" + result.substring(0, result.length() - 2) + "]";
-	}
-
-	public static String integerArrayListToString(List<Integer> nums) {
-		return integerArrayListToString(nums, nums.size());
-	}
-
-	public static int[] stringToIntegerArray(String input) {
-		input = input.trim();
-		input = input.substring(1, input.length() - 1);
-		if (input.length() == 0) {
-			return new int[0];
-		}
-
-		String[] parts = input.split(",");
-		int[] output = new int[parts.length];
-		for(int index = 0; index < parts.length; index++) {
-			String part = parts[index].trim();
-			output[index] = Integer.parseInt(part);
-		}
-		return output;
-	}
-
-	public static String treeNodeToString(TreeNode root) {
-		if (root == null) {
-			return "[]";
-		}
-
-		String output = "";
-		Queue<TreeNode> nodeQueue = new LinkedList<>();
-		nodeQueue.add(root);
-		while(!nodeQueue.isEmpty()) {
-			TreeNode node = nodeQueue.remove();
-
-			if (node == null) {
-				output += "null, ";
-				continue;
-			}
-
-			output += String.valueOf(node.val) + ", ";
-			nodeQueue.add(node.left);
-			nodeQueue.add(node.right);
-		}
-		return "[" + output.substring(0, output.length() - 2) + "]";
-	}
-
 	public static void main(String[] args) throws IOException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		String line;
 		while ((line = in.readLine()) != null) {
-			int[] inorder = stringToIntegerArray(line);
+			TreeNode root = stringToTreeNode(line);
 			line = in.readLine();
-			int[] postorder = stringToIntegerArray(line);
+			int k = Integer.parseInt(line);
 
-			TreeNode ret = buildTree(inorder, postorder);
+			int ret = kthLargest(root, k);
 
-			String out = treeNodeToString(ret);
+			String out = String.valueOf(ret);
 
 			System.out.print(out);
 		}

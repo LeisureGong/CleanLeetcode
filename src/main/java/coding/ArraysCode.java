@@ -382,6 +382,8 @@ public class ArraysCode {
 	}
 
 
+
+
 	public static void main(String... args){
 //		String a = "helko";
 //		a.replace("lk","ll");

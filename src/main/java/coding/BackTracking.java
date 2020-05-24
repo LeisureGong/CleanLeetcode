@@ -113,40 +113,47 @@ public class BackTracking {
 	}
 	//79. 单词搜索
 	static boolean flag = false;
+	static String words;
 	public static boolean exist(char[][] board, String word) {
-		if(board.length == 0 || word.length() == 0) return false;
-		for(int i = 0;i < board.length;i++){
-			for(int j = 0;j < board[0].length;j++){
-				//找到第一个字符，才开始回溯
+		if(board.length == 0 || board[0].length == 0) return false;
+		words = word;
+		for(int i = 0;i < board.length;i++) {
+			for(int j = 0;j < board[0].length;j++) {
 				if(board[i][j] == word.charAt(0)){
+					flag = false;
 					boolean[][] road = new boolean[board.length][board[0].length];
-					wordBacktrack(board,word,i,j,0,road);
+					wordBackTrack(board,road,i,j,0);
 					if(flag) return true;
 				}
 			}
 		}
 		return false;
 	}
-	public static void wordBacktrack(char[][] board,String word,int i,int j,int len,boolean[][] road){
-		if(flag) return;//剪枝，否则容易超时
+
+	public static void wordBackTrack(char[][] board,boolean[][] road,int i,int j,int len) {
+		if(flag) return;
 		road[i][j] = true;
-		//剪枝
-		if(i < 0 || i >= board.length || j < 0 | j >= board[0].length) return;
-		if(len == word.length()-1){
+		if(i < 0 || i >= board.length || j < 0 || j >=board[0].length){
+			return;
+		}
+		if(len == words.length() - 1){
 			flag = true;
 			return;
 		}
-		//要过滤已经走过的路径
 		//up
-		if((i-1) >= 0 && board[i-1][j] == word.charAt(len+1) && !road[i-1][j]) wordBacktrack(board,word,i-1,j,len+1,road);
+		if((i-1) >= 0 && board[i-1][j] == words.charAt(len+1) && !road[i-1][j])
+			wordBackTrack(board,road,i-1,j,len+1);
 		//down
-		if((i+1) < board.length && board[i+1][j] == word.charAt(len+1) && !road[i+1][j]) wordBacktrack(board,word,i+1,j,len+1,road);
+		if((i+1) < board.length && board[i+1][j] == words.charAt(len+1) && !road[i+1][j])
+			wordBackTrack(board,road,i+1,j,len+1);
 		//left
-		if((j-1) >= 0 && board[i][j-1] == word.charAt(len+1) && !road[i][j-1]) wordBacktrack(board,word,i,j-1,len+1,road);
+		if((j-1) >= 0 && board[i][j-1] == words.charAt(len+1) && !road[i][j-1])
+			wordBackTrack(board,road,i,j-1,len+1);
 		//right
-		if((j+1) < board[0].length && board[i][j+1] == word.charAt(len+1) && !road[i][j+1]) wordBacktrack(board,word,i,j+1,len+1,road);
-		road[i][j] = false;
+		if((j+1) < board[0].length && board[i][j+1] == words.charAt(len+1) && !road[i][j+1])
+			wordBackTrack(board,road,i,j+1,len+1);
 	}
+
 
 
 	public static void main(String... args){
