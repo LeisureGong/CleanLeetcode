@@ -381,6 +381,33 @@ public class ArraysCode {
 		return -1;
 	}
 
+	//
+	public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+
+		int m = nums1.length,n = nums2.length;
+		int k = (m+n)/2;
+		int m1 = findKth(nums1,m,nums2,n,k);
+		if((m+n)%2 == 0){
+			int m2 = findKth(nums1,m,nums2,n,k+1);
+			return (m1 + m2)/2.0;
+		}
+		return m1;
+	}
+
+	// 寻找两个有序数组的第k位数
+	public static int findKth(int[] nums1,int m,int[] nums2,int n,int k) {
+		if(m < n) return findKth(nums2,n,nums1,m,k);
+		if(n == 0) return nums1[k-1];
+		if(k == 1) return Math.min(nums1[0],nums2[0]);
+		// 如果n<k/2
+		int j = Math.min(n,k/2);
+		int i = k - j;
+		if(nums1[i-1] > nums2[j-1]) {
+			return findKth(nums1,i,Arrays.copyOfRange(nums2,j,nums2.length),n - j,k - j);
+		}
+		return findKth(Arrays.copyOfRange(nums1,i,nums1.length),m - i,nums2,n,k - i);
+	}
+
 
 
 
@@ -389,8 +416,8 @@ public class ArraysCode {
 //		a.replace("lk","ll");
 //		System.out.println(a);
 //		generate(5);
-		mySqrt(10000132);
-		Math.pow(10,2);
+		findMedianSortedArrays(new int[]{1,3},new int[]{2});
+
 	}
 
 
