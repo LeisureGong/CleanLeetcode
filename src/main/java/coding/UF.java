@@ -1,5 +1,8 @@
 package coding;
 
+import java.util.HashSet;
+import java.util.Set;
+
 class UF {
     // 连通分量个数
     private int count;
@@ -54,7 +57,28 @@ class UF {
         return count;
     }
 
-    public static void main(String[] args) {
+    // 128. 最长连续序列
+    public static int longestConsecutive(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for(int num : nums) {
+            set.add(num);
+        }
+        int maxLen = 0;
+        for(int num : nums) {
+            if(!set.contains(num - 1)) {
+                int currNum = num;
+                int currLen = 1;
+                while(set.contains(currNum + 1)) {
+                    currNum = num + 1;
+                    currLen = currLen + 1;
+                }
+                maxLen = Math.max(maxLen,currLen);
+            }
+        }
+        return maxLen;
+    }
 
+    public static void main(String[] args) {
+        System.out.println(longestConsecutive(new int[]{100,4,200,1,3,2}));
     }
 }
