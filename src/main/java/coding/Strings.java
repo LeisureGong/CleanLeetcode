@@ -386,30 +386,49 @@ public class Strings {
         return carry == 1 ? "1" +  suffix.reverse().toString(): prefix.substring(0,plen) + suffix.reverse().toString();
     }
 
+    // 字符串，版本号
+    public static int compareVersion(String version1, String version2) {
+        int i1 = 0,j1 = 0;
+        while(i1 < version1.length() && j1 < version2.length()) {
+            int i2 = i1,j2 = j1;
+            while(i2 < version1.length() && version1.charAt(i2) != '.') i2++;
+            while(j2 < version2.length() && version2.charAt(j2) != '.') j2++;
+            String str1 = version1.substring(i1,i2);
+            String str2 = version2.substring(j1,j2);
 
+            int s1 = 0,s2 = 0;
+            while(s1 < str1.length() && str1.charAt(s1) == '0') ++s1;
+            while(s2 < str2.length() && str2.charAt(s2) == '0') ++s2;
+            if(s1 != 0) str1 = s1 != str1.length() ? str1.substring(s1,str1.length()) : "0";
+            if(s2 != 0) str2 = s2 != str2.length() ? str2.substring(s2,str2.length()) : "0";
+            if(!str1.equals(str2)) {
+                if(Integer.valueOf(str1) > Integer.valueOf(str2)) return 1;
+                if(Integer.valueOf(str1) < Integer.valueOf(str2)) return -1;
+            }
+            i1 = i2 + 1;
+            j1 = j2 + 1;
+        }
+        return i1 == version1.length() + 1 ? check(version2,j1-1,-1) : check(version1,i1-1,1);
+
+    }
+    public static int check(String version,int index,int flag) {
+        int k = 0;
+        while(index < version.length()) {
+            char c = version.charAt(index);
+            if(c != '.' && c != '0') {
+                k = 1;
+                break;
+            }
+            index++;
+        }
+        return flag*k;
+    }
 
     public static void main(String... args){
-//        System.out.println(gcdOfStrings("aaaa","aa"));
-//        System.out.println(compressString(""));
-//        System.out.println(romanToInt("LVIII"));
-//        System.out.println(intToRoman(3489));
-//        System.out.println(isValid("()"));
-//        String[] words = {"cat","bt","hat","tree"};
-//        String chars = "atach";
-//        System.out.println(countCharacters(words,chars));
-//        System.out.println(longestPalindrome("babad"));
-//        System.out.println(longestPalindrome("cbbd"));
-//        System.out.println(reverse(-2147448));
-//        System.out.println(convert("LEETCODEISHIRING",3));
-//        System.out.println(isAnagram("an","naa"));
-//        System.out.println(countAndSay(5));
-        int n = 10;
-        n = n >>1;
-        while(n > 0){
-
-
-        }
-        System.out.println(11 & 1);
+       String a = "aa";
+       int i = 2;
+       while(--i > 0) a += a;
+       System.out.println(a);
     }
 
 
