@@ -155,12 +155,45 @@ public class BackTracking {
 	}
 
 
+	public static String[] permutation(String s) {
+
+		// 回溯算法
+		List<List<Character>> result = new ArrayList<>();
+		List<Character> temp = new ArrayList<>();
+		char[] chs = s.toCharArray();
+		for(int i = 0;i < chs.length;i++) {
+			temp.add(chs[i]);
+		}
+		int n = chs.length;
+		permuteBackTrack1(n,temp,result,0);
+
+		String[] res = new String[result.size()];
+		int i = 0;
+		for(List<Character> list : result) {
+			StringBuilder sb = new StringBuilder(list.size());
+			for(char c : list) {
+				sb.append(c);
+			}
+			res[i++] = sb.toString();
+		}
+		return res;
+	}
+
+	public static void permuteBackTrack1(int n,List<Character> nums,List<List<Character>> result,int first){
+		//满足条件，保存结果
+		if(first == n){
+			result.add(new ArrayList<>(nums));
+		}
+		for(int i = first;i < n;i++){
+			Collections.swap(nums,first,i);
+			permuteBackTrack1(n,nums,result,first+1);
+			Collections.swap(nums,first,i);
+		}
+	}
+
 
 	public static void main(String... args){
-		combinationSum(new int[]{10,1,2,7,6,1,5},8);
-		char[][] board = {{'A','B','C','E'},
-				{'S','F','E','S'},{'A','D','E','E'}};
-		System.out.println(exist(board,"ABCESEEEFS"));
+		permutation("abc");
 	}
 
 }
