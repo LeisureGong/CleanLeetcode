@@ -11,6 +11,8 @@ import java.util.PriorityQueue;
  */
 public class PriorityQueues {
 
+	private PriorityQueue<Integer> minHeap;
+
 	/**
 	 * 对开始时间进行排序，如果相邻的时间没有重叠，则移除最早的那个时间
 	 * 堆的大小即为最大并集（移除一个元素的同时也加入一个新元素,除非有新的更大size的并集，堆的大小才会改变）

@@ -132,6 +132,8 @@ class UF {
     }
 
     public static void main(String[] args) {
-        solve(new char[][]{{'O','O','O'},{'O','O','O'},{'O','O','O'}});
+        String a = "John";
+        String b = "Jon";
+        System.out.println(a.compareTo(b));
     }
 }
