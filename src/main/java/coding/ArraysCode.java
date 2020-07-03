@@ -409,6 +409,31 @@ public class ArraysCode {
 	}
 
 
+	public static List<List<Integer>> threeSum(int[] nums) {
+		if(nums.length < 3) return Collections.emptyList();
+		List<List<Integer>> res = new ArrayList<>();
+		Arrays.sort(nums);
+		for(int i = 0;i < nums.length - 3;i++) {
+			int target = - nums[i];
+			int j = i + 1,k = nums.length - 1;
+			while(j < k) {
+				int tempSum = nums[j] + nums[k];
+				if(tempSum == target) {
+					List<Integer> temp = new ArrayList<>();
+					temp.add(nums[i]);
+					temp.add(nums[j]);
+					temp.add(nums[k]);
+					res.add(temp);
+					j++;k--;
+				} else if(tempSum < target) {
+					j++;
+				} else k--;
+			}
+		}
+		return res;
+	}
+
+
 
 
 	public static void main(String... args){
@@ -416,7 +441,7 @@ public class ArraysCode {
 //		a.replace("lk","ll");
 //		System.out.println(a);
 //		generate(5);
-		findMedianSortedArrays(new int[]{1,3},new int[]{2});
+		threeSum(new int[]{-1, 0, 1, 2, -1, -4});
 
 	}
 

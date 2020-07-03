@@ -78,29 +78,60 @@ class UF {
         return maxLen;
     }
 
-    public static boolean equationsPossible(String[] equations) {
-        UF uf = new UF(26);
-        for(String eq : equations) {
-            if(eq.charAt(1) == '=') {
-                char a = eq.charAt(0);
-                char b = eq.charAt(3);
-                uf.union(a - 'a',b - 'a');
+    public static void solve(char[][] board) {
+
+        int m = board.length;
+        int n = board[0].length;
+
+        UF uf = new UF(m*n + 1);
+        int dummy = m * n;
+
+        for(int i = 0;i < m;i++) {
+            if(board[i][0] == 'O') {
+                uf.union(i*n,dummy);
+            }
+            if(board[i][n-1] == 'O') {
+                uf.union(i * n + n - 1,dummy);
             }
         }
 
-        for(String eq : equations) {
-            if(eq.charAt(1) == '!') {
-                char a = eq.charAt(0);
-                char b = eq.charAt(3);
-                if(uf.connected(a - 'a',b - 'a')) {
-                    return false;
+        for(int j = 0;j < n;j++) {
+            if(board[0][j] == 'O') {
+                uf.union(j,dummy);
+            }
+            if(board[m-1][j] == 'O') {
+                uf.union((m-1)*n + j,dummy);
+            }
+        }
+
+        // 上下左右搜索
+        int[][] d = new int[][] {{-1,0},{1,0},{0,-1},{0,1}};
+        for(int i = 1;i < m - 1;i++) {
+            for(int j = 1;j < n - 1;j++) {
+                if(board[i][j] == 'O') {
+                    for(int k = 0;k < 4;k++) {
+                        int x = i + d[k][0];
+                        int y = j + d[k][1];
+                        if(board[x][y] == 'O') {
+                            uf.union(x*n+y,i*n+j);
+                        }
+                    }
                 }
             }
         }
-        return true;
+
+        // 所有不和dummy连接的0,全部要被替换
+        for(int i = 1;i < m - 1;i++) {
+            for(int j = 1;j < n - 1;j++) {
+                if(!uf.connected(dummy,i*n+j)) {
+                    board[i][j] = 'X';
+                }
+            }
+        }
+
     }
 
     public static void main(String[] args) {
-        System.out.println(equationsPossible(new String[]{"a==b","b!=a"}));
+        solve(new char[][]{{'O','O','O'},{'O','O','O'},{'O','O','O'}});
     }
 }
