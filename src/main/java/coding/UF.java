@@ -78,7 +78,29 @@ class UF {
         return maxLen;
     }
 
+    public static boolean equationsPossible(String[] equations) {
+        UF uf = new UF(26);
+        for(String eq : equations) {
+            if(eq.charAt(1) == '=') {
+                char a = eq.charAt(0);
+                char b = eq.charAt(3);
+                uf.union(a - 'a',b - 'a');
+            }
+        }
+
+        for(String eq : equations) {
+            if(eq.charAt(1) == '!') {
+                char a = eq.charAt(0);
+                char b = eq.charAt(3);
+                if(uf.connected(a - 'a',b - 'a')) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
-        System.out.println(longestConsecutive(new int[]{100,4,200,1,3,2}));
+        System.out.println(equationsPossible(new String[]{"a==b","b!=a"}));
     }
 }
