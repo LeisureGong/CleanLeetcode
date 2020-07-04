@@ -13,6 +13,38 @@ import java.util.stream.Collectors;
  */
 public class _0703 {
 
+	public static void main(String[] args) {
+		List<List<Integer>> res = kSmallestPairs(new int[]{2,1,1},new int[]{3,1,2},2);
+		System.out.println(res);
+	}
+
+	// 找出第k小的距离对
+	public static int smallestDistancePair(int[] nums, int k) {
+		Arrays.sort(nums);
+		PriorityQueue<Node> heap = new PriorityQueue<Node>(nums.length,
+				Comparator.<Node> comparingInt(node -> nums[node.nei] - nums[node.root]));
+		for(int i = 0; i + 1 < nums.length; i++) {
+			heap.offer(new Node(i,i+1));
+		}
+		Node node = null;
+		for(; k > 0; --k) {
+			node = heap.poll();
+			if(node.nei + 1 < nums.length) {
+				heap.offer(new Node(node.root,node.nei + 1));
+			}
+		}
+		return nums[node.nei] - nums[node.root];
+ 	}
+
+	static class Node {
+		int root;
+		int nei;
+		Node (int r, int n) {
+			root = r;
+			nei = n;
+		}
+	}
+
 	public static  List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
 
 		List<List<Integer>> lists = new ArrayList<>();
@@ -44,10 +76,5 @@ public class _0703 {
 			}
 		}
 		return pq.poll()[0];
-	}
-
-	public static void main(String[] args) {
-		List<List<Integer>> res = kSmallestPairs(new int[]{2,1,1},new int[]{3,1,2},2);
-		System.out.println(res);
 	}
 }
