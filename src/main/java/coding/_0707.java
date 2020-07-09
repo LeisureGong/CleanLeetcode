@@ -1,7 +1,9 @@
 package coding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,8 +14,34 @@ import java.util.List;
 public class _0707 {
 
 	public static void main(String[] args) {
-		char[] chs = new char[]{'a','a','a','b','b','a','a'};
-		System.out.println(compress(chs));
+		int[][] points = new int[][]{{10,16},{2,8}, {1,6}, {7,12}};
+		System.out.println(findMinArrowShots(points));
+	}
+
+	public static int findMinArrowShots(int[][] points) {
+
+		if(points.length <= 1) return points.length;
+		Arrays.sort(points, Comparator.comparingInt(o -> o[0]));
+		int count = 1;
+		int j = 1;
+		int[] tmp = new int[2];
+		tmp[0] = points[0][0];
+		tmp[1] = points[0][1];
+		while(j < points.length) {
+			while(j < points.length && tmp[1] >= points[j][0]) {
+				if(points[j][1] < tmp[1]) {
+					tmp[1] = points[j][1];
+				}
+				++j;
+			}
+			if(j < points.length && tmp[1] < points[j][0]) {
+				++count;
+				tmp[0] = points[j][0];
+				tmp[1] = points[j][1];
+				j++;
+			}
+		}
+		return count;
 	}
 
 	static class MyTrieTree {
@@ -34,19 +62,20 @@ public class _0707 {
 				visited = false;
 			}
 		}
+
 		MyTrieTree() {
 			root = new MyTrieNode();
 		}
 
 		public void insert(String word) {
-			if(word == null || word.length() == 0) {
+			if (word == null || word.length() == 0) {
 				return;
 			}
 			MyTrieNode node = root;
 			char[] letters = word.toCharArray();
-			for(int i = 0;i < word.length();i++) {
+			for (int i = 0; i < word.length(); i++) {
 				int pos = letters[i] - 'a';
-				if(node.son[pos] == null) {
+				if (node.son[pos] == null) {
 					node.son[pos] = new MyTrieNode();
 					node.son[pos].val = letters[i];
 				} else {
@@ -59,10 +88,10 @@ public class _0707 {
 
 		// get the first unvisited child of a node
 		public MyTrieNode fistChildOf(MyTrieNode node) {
-			if(node == null) return null;
-			for (int i = 0;i < 26;i++) {
+			if (node == null) return null;
+			for (int i = 0; i < 26; i++) {
 				MyTrieNode tmp = node.son[i];
-				if(tmp != null && !tmp.visited) {
+				if (tmp != null && !tmp.visited) {
 					tmp.visited = true;
 					return tmp;
 				}
@@ -76,7 +105,7 @@ public class _0707 {
 			// 保存遍历的node，方便打印
 			LinkedList<MyTrieNode> list = new LinkedList<>();
 			MyTrieNode rootNode = root;
-			if(root == null) return Collections.emptyList();
+			if (root == null) return Collections.emptyList();
 			// 从根节点，遍历trie
 			for (int i = 0; i < 26 && rootNode.son[i] != null; i++) {
 				MyTrieNode sonOfRoot = rootNode.son[i];
@@ -88,10 +117,10 @@ public class _0707 {
 				// 反着来，现在board找到第一个字符board[i][j]
 				// 看board相邻的三个字符在字符表中是否存在
 				// 如果都不存在，则提前返回
-				for (int j = 0; j < board.length;j++) {
+				for (int j = 0; j < board.length; j++) {
 					for (int k = 0; k < board[0].length; k++) {
 						// 剪枝遍历
-						if(board[i][j] == sonVal) {
+						if (board[i][j] == sonVal) {
 
 						}
 					}
@@ -99,18 +128,7 @@ public class _0707 {
 
 
 			}
-		}
-
-		// DFS
-		public void dfs()
-
-
-		public String printTrieNode(LinkedList<MyTrieNode> list) {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0;i < list.size(); i++) {
-				sb.append(list.get(i).val);
-			}
-			return sb.toString();
+			return null;
 		}
 	}
 
