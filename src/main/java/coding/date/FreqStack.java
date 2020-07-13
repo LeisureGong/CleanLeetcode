@@ -14,7 +14,7 @@ import java.util.PriorityQueue;
  */
 class FreqStack {
 
-	// 出现次数最多的元素
+	// 出现元素最大的次数
 	int maxFreq;
 	// 各个元素出先的次数
 	Map<Integer, Integer> numFreq;
