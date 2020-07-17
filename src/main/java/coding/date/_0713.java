@@ -2,6 +2,7 @@ package coding.date;
 
 import org.omg.CORBA.StringHolder;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ public class _0713 {
 		int[] A = new int[]{0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1};
 		int K = 3;
 		System.out.println(solution.longestOnes(A,K));
+		BigDecimal res = new BigDecimal(1);
 	}
 
 	public int longestOnes(int[] A, int K) {
