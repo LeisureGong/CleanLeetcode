@@ -2,8 +2,11 @@ package coding.date;
 
 import org.omg.CORBA.StringHolder;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 /**
  * @author gonglei
@@ -13,9 +16,65 @@ public class _0713 {
 
 	public static void main(String[] args) {
 		_0713 solution = new _0713();
-		int[] A = new int[]{0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1};
-		int K = 3;
-		System.out.println(solution.longestOnes(A,K));
+		int[][] A = new int[][]{{4,5},{2,3},{1,2}};
+
+		System.out.println(Arrays.toString(solution.findRightInterval(A)));
+	}
+
+	public int[] findRightInterval(int[][] intervals) {
+		int[] res = new int[intervals.length];
+		int[] helpArray = new int[intervals.length];
+
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < intervals.length; i++) {
+			map.put(intervals[i][0],i);
+			helpArray[i] = intervals[i][0];
+		}
+		Arrays.sort(helpArray);
+
+		for(int i = 0; i < intervals.length; i++) {
+			int[] tmp = intervals[i];
+			int index = map.get(tmp[0]);
+			// 对每一个tmp[1],找到以o[0]组成的数组中有没有比他大的
+			int key = find(tmp[1],intervals);
+			res[index] = key == -1 ? -1 : map.get(intervals[key]);
+		}
+		return res;
+	}
+
+	public int find(int target, int[][] intervals) {
+		int left = 0, right = intervals.length - 1;
+		while (left <= right) {
+			int mid = (left + right) / 2;
+			if (target <= intervals[mid][0]) right = mid - 1;
+			else left = mid + 1;
+		}
+		return right != intervals.length - 1 ? left : -1;
+	}
+
+	private class TwoTuple {
+		public final int first;
+		public final int second;
+		public TwoTuple(int a, int b) {
+			first = a;
+			second = b;
+		}
+	}
+
+	public int[] kthSmallestPrimeFraction(int[] A, int K) {
+		PriorityQueue<TwoTuple> pq = new PriorityQueue<>(Comparator.comparingDouble(o -> (double)A[o.first] / A[o.second]));
+
+		for (int i = 1; i < A.length; i++) {
+			pq.add(new TwoTuple(0,i));
+		}
+		while(--K > 0) {
+			TwoTuple tmp = pq.poll();
+			if(tmp.first + 1 < tmp.second) {
+				pq.add(new TwoTuple(tmp.first + 1, tmp.second));
+			}
+		}
+		TwoTuple res = pq.poll();
+		return new int[]{A[res.first],A[res.second]};
 	}
 
 	public int longestOnes(int[] A, int K) {
