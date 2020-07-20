@@ -91,8 +91,14 @@ public class BigTest {
         return sb.toString();
     }
 
+    public static String simplifyPathV2(String path) {
+       path =  path.replaceAll("/+","/");
+
+        return path;
+    }
+
 
     public static void main(String[] args) {
-       System.out.println("2".compareTo("10"));
+       System.out.println(simplifyPathV2("/a//b////c/d//././/.."));
     }
 }
