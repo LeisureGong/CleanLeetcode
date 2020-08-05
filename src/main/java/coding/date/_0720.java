@@ -1,8 +1,7 @@
 package coding.date;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author gonglei
@@ -12,8 +11,69 @@ public class _0720 {
 
 	public static void main(String[] args) {
 		_0720 solution = new _0720();
-		System.out.println(solution.maxNumOfSubstrings("adefaddaccc"));
+
+		System.out.println(solution.numSplits("aaaaa"));
 	}
+
+
+	int count = 0;
+	public int numSplits(String s) {
+		if (s == null || s.length() <= 1) return 0;
+		for (int i = 1; i < s.length() - 1; ++i) {
+			String s1 = s.substring(0,i);
+			String s2 = s.substring(i,s.length());
+			func(s1,s2);
+		}
+		return count;
+	}
+
+	private void func(String s1,String s2) {
+		Set<Integer> set1 = new HashSet<>();
+		Set<Integer> set2 = new HashSet<>();
+		for (char c1 : s1.toCharArray()) {
+			set1.add(c1 - 'a');
+		}
+		for (char c2 : s2.toCharArray()) {
+			set2.add(c2 - 'a');
+		}
+		if (set1.size() == set2.size()) count++;
+	}
+
+
+
+
+	int[] res;
+	int m, n;
+	int land[][];
+	public int[] pondSizes(int[][] land) {
+		int index = 0;
+		this.land = land;
+		this.m = land.length;
+		this.n = land[0].length;
+		res = new int[m * n];
+		for (int i = 0; i < m; ++i) {
+			for (int j = 0; j < n; ++j) {
+				if (land[i][j] == 0) {
+					res[index++] = dfs(i,j);
+				}
+			}
+		}
+		res = Arrays.copyOfRange(res,0,index);
+		Arrays.sort(res);
+		return res;
+	}
+
+	private int dfs(int r, int c) {
+		if(r < 0 || r >= m || c < 0 || c >= n || land[r][c] != 0) return 0;
+		land[r][c] = -1;
+		int tmp = 1;
+		tmp +=
+				dfs(r-1,c) + dfs(r+1,c) + dfs(r,c-1) + dfs(r,c+1);
+		tmp +=
+				dfs(r-1,c-1) + dfs(r+1,c-1) + dfs(r-1,c+1) + dfs(r+1,c+1);
+		return tmp;
+	}
+
 
 	int[] left;
 	int[] right;

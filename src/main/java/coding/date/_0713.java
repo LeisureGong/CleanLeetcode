@@ -3,6 +3,7 @@ package coding.date;
 import org.omg.CORBA.StringHolder;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,11 +15,30 @@ public class _0713 {
 
 	public static void main(String[] args) {
 		_0713 solution = new _0713();
-		int[] A = new int[]{0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1};
-		int K = 3;
-		System.out.println(solution.longestOnes(A,K));
-		BigDecimal res = new BigDecimal(1);
+		String s =  "1110001010101111000001111111111111111";
+		System.out.println(solution.numSub(s));
 	}
+
+	public int numSub(String s) {
+		long count = 0;
+		int i = 0, j = 0;
+		int mod = (int) Math.pow(10,9) + 7;
+		while (j < s.length()) {
+			while(i < s.length() && s.charAt(i) == '0') {
+				i++;
+			}
+			j = i;
+			while(j < s.length() && s.charAt(j) == '1') {
+				j++;
+			}
+			// count
+			int len = j - i;
+			count = (count + (len / 2)*(len+1)%mod)%mod;
+			i = j;
+		}
+		return (int)count % mod;
+	}
+
 
 	public int longestOnes(int[] A, int K) {
 
