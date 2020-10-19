@@ -1,6 +1,5 @@
 package sort;
 
-import java.nio.channels.AsynchronousByteChannel;
 import java.util.Arrays;
 
 public class HeapSort {
