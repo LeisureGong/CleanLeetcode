@@ -122,7 +122,7 @@ public class AVLTree<T extends Comparable<T>> {
 
     /**
      * LR旋转
-     * 1）先对k1进行的RR旋转
+     * 1）先对k3进行的RR旋转
      * 2）再对k3进行LL旋转
      * @param k3 当前最小失衡节点
      * @return
